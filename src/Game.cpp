@@ -2,14 +2,18 @@
 #include "Game.h"
 #include "Player.h"
 
+#include <iostream>
+
 Game::Game(){
     sAppName = "TerrariaPP";
 
     gamePos = {0.0f, 0.0f};
+    
+    entityHandler = new EntityHandler();
+    chunkHandler = new ChunkHandler();
 
     // create a player and add the player to the game
-    // entityHandler->addEntity(new Player("Steve", {static_cast<float>(ScreenWidth())/2, static_cast<float>(ScreenHeight())/2}));
-    entityHandler->addEntity(new Player());
+    entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
 }
 
 bool Game::OnUserCreate() {
@@ -17,13 +21,11 @@ bool Game::OnUserCreate() {
 }
 
 bool Game::OnUserUpdate(float fElapsedTime) {
-    // called once per frame
-    for (int x = 0; x < ScreenWidth(); x++)
-        for (int y = 0; y < ScreenHeight(); y++)
-            Draw(x, y, olc::Pixel(rand() % 256, rand() % 256, rand()% 256));
 
+    chunkHandler->tick(fElapsedTime);
     entityHandler->tick(fElapsedTime);
 
+    chunkHandler->render(this);
     entityHandler->render(this);
 
     return true;

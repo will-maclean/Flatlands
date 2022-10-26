@@ -2,14 +2,13 @@
 
 #include "Entity.h"
 
+class Game;
 
 class Player : public Entity{
 public:
-    // Player(std::string name, olc::vf2d location);
-    // Player(std::string name);
-    Player();
+    Player(std::string name, olc::vf2d location);
 
     void tick(float fElapsedTime) override;
 
-    void render(class Game* game) override;
+    void render(Game* game) override;
 };
