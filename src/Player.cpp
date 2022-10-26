@@ -4,7 +4,7 @@
 #include <iostream>
 
 Player::Player(std::string name, olc::vf2d location)
-: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resoureces/sprirtes/tut_tile.png"){
+: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/tut_tile.png"){
 
 }
 
