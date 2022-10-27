@@ -3,6 +3,8 @@
 #include <vector>
 #include "Chunk.h"
 
+class Game;
+
 class ChunkHandler{
 private:
     std::vector<Chunk *> chunks;
@@ -16,5 +18,5 @@ public:
 
     void tick(float fElapsedTime);
 
-    void render(class Game* game);
+    void render(Game* game);
 };

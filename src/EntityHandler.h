@@ -17,7 +17,7 @@ public:
 
     // void removeEntity(Entity* entity);
 
-    void tick(float fElapsedTime);
+    void tick(Game* game, float fElapsedTime);
 
     void render(Game* game);
 };

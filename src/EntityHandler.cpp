@@ -12,9 +12,9 @@ void EntityHandler::addEntity(Entity* entity){
 //     entities.remove(entities.begin(), entities.end(), entity);
 // }
 
-void EntityHandler::tick(float fElapsedTime){
+void EntityHandler::tick(Game* game, float fElapsedTime){
     for(auto entity : entities){
-        entity->tick(fElapsedTime);
+        entity->tick(game, fElapsedTime);
     }
 }
 

@@ -7,6 +7,7 @@
 class Game : public olc::PixelGameEngine
 {
 private:
+	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}
 	olc::vf2d gamePos;
 
 	EntityHandler* entityHandler;
@@ -18,4 +19,8 @@ public:
 	bool OnUserCreate() override;
 
 	bool OnUserUpdate(float fElapsedTime) override;
+
+	bool tick(float fElapsedTime);
+
+	void render();
 };

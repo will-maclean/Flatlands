@@ -14,6 +14,9 @@ Game::Game(){
 
     // create a player and add the player to the game
     entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
+
+    // Create a chunkg and add it to the game
+    chunkHandler->addChunk(new Chunk({0, 0}));
 }
 
 bool Game::OnUserCreate() {
@@ -22,11 +25,25 @@ bool Game::OnUserCreate() {
 
 bool Game::OnUserUpdate(float fElapsedTime) {
 
-    chunkHandler->tick(fElapsedTime);
-    entityHandler->tick(fElapsedTime);
+    // tick the game...
+    bool shouldContinue = tick(fElapsedTime);
 
-    chunkHandler->render(this);
-    entityHandler->render(this);
+    // ...and then render it
+    render();
+
+    return shouldContinue;
+}
+
+bool Game::tick(float fElapsedTime){
+    chunkHandler->tick(fElapsedTime);
+    entityHandler->tick(this, fElapsedTime);
 
     return true;
+}
+
+void Game::render(){
+    SetPixelMode(olc::Pixel::NORMAL);
+    Clear(BACKGROUND_COLOUR);
+    chunkHandler->render(this);
+    entityHandler->render(this);
 }

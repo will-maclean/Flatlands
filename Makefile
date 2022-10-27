@@ -8,7 +8,7 @@ CXXFLAGS = -std=c++17 -Wall
 LDFLAGS = -lX11 -lGL -lpthread -lpng -lstdc++fs -g
 
 # Makefile settings - Can be customized.
-APPNAME = TerrariaPP
+APPNAME = TorrorioPP
 EXT = .cpp
 SRCDIR = src
 OBJDIR = obj

@@ -1,4 +1,5 @@
 #include "ChunkHandler.h"
+#include "Game.h"
 
 ChunkHandler::ChunkHandler(){
 
@@ -19,7 +20,7 @@ void ChunkHandler::tick(float fElapsedTime){
 }
 
 void ChunkHandler::render(Game* game){
-    // for(auto entity : entities){
-    //     entity->render(game);
-    // }
+    for(auto chunk : chunks){
+        chunk->render(game);
+    }
 }
