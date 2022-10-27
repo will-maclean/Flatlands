@@ -10,5 +10,5 @@ private:
 public:
     Player(std::string name, olc::vf2d location);
 
-    void tick(Game* game, float fElapsedTime);
+    void tick(Game* game, float fElapsedTime) override;
 };

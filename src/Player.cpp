@@ -10,7 +10,7 @@ Player::Player(std::string name, olc::vf2d location)
 }
 
 
-void Player::tick(Game* game, float fElapsedTime){
+void Player::tick(Game* game, float fElapsedTime) {
     // update the velocity based on the keyboard input
 
     velocity = {0, 0};
@@ -28,5 +28,5 @@ void Player::tick(Game* game, float fElapsedTime){
         velocity = MAX_SPEED * velocity / velocity.mag();
     }
 
-    location = location + fElapsedTime * velocity;
+    Entity::tick(game, fElapsedTime);
 }

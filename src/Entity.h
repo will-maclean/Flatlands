@@ -17,6 +17,6 @@ protected:
 public:
     Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath);
     
-    virtual void tick(Game* game, float fElapsedTime) = 0;
+    virtual void tick(Game* game, float fElapsedTime);
     void render(Game* game);
 };
