@@ -13,13 +13,20 @@ Player::Player(std::string name, olc::vf2d location)
 void Player::tick(Game* game, float fElapsedTime){
     // update the velocity based on the keyboard input
 
+    velocity = {0, 0};
+
     // left right
     if (game->GetKey(olc::Key::LEFT).bHeld) velocity.x -= MAX_SPEED;
 	if (game->GetKey(olc::Key::RIGHT).bHeld) velocity.x += MAX_SPEED;
 
     // up down
-    if (game->GetKey(olc::Key::LEFT).bHeld) velocity.x -= MAX_SPEED;
-	if (game->GetKey(olc::Key::RIGHT).bHeld) velocity.x += MAX_SPEED;
+    if (game->GetKey(olc::Key::UP).bHeld) velocity.y -= MAX_SPEED;
+	if (game->GetKey(olc::Key::DOWN).bHeld) velocity.y += MAX_SPEED;
 
-    Entity::tick(game, fElapsedTime);
+    // scale the velocity to MAX_SPEED so we don't break the speed of light
+    if(velocity.mag() != 0){
+        velocity = MAX_SPEED * velocity / velocity.mag();
+    }
+
+    location = location + fElapsedTime * velocity;
 }

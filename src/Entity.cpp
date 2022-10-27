@@ -15,7 +15,7 @@ void Entity::render(Game* game){
     game->DrawSprite(location, sprTile.get());
 }
 
-void Entity::tick(Game* game, float fElapsedTime){
-    // update the position based on the velocity
-    location = location + fElapsedTime * velocity;
-}
+// void Entity::tick(Game* game, float fElapsedTime){
+//     // update the position based on the velocity
+//     location = location + fElapsedTime * velocity;
+// }
