@@ -3,6 +3,7 @@
 #include "Player.h"
 
 #include <iostream>
+#include <vector>
 
 Game::Game(){
     sAppName = "TerrariaPP";
@@ -36,6 +37,7 @@ bool Game::OnUserUpdate(float fElapsedTime) {
 }
 
 bool Game::tick(float fElapsedTime){
+    updateEntityChunk();
     chunkHandler->tick(fElapsedTime);
     entityHandler->tick(this, fElapsedTime);
 
@@ -57,4 +59,42 @@ bool Game::processGlobalUserInput(){
     }
 
     return true;
+}
+
+void Game::updateEntityChunk(){
+    // make sure that each entity has the correct chunk
+    std::vector<Entity *> entities = entityHandler->getEntities();
+
+    for(auto entity : entities){
+        // check that the current chunk is correct
+        olc::vf2d entityLoc = entity->getLocation();
+
+        // start with checking the current chunk to see if we can avoid having
+        // to iterate through the whole list of chunks
+        if(entity->getChunk() != nullptr){
+            Chunk* chunk = entity->getChunk();
+            if(chunk->contains(entityLoc)){
+                // beauty! can continue
+                continue;
+            }else{
+                // current chunk is wrong
+                entity->setChunk(nullptr);
+            }
+        }
+
+        bool foundHome = false;
+        // looks like the current chunk either isn't set, or doesn't contain
+        // the entity. Let's see if we can find a home for the entity.
+        for(auto chunk : chunkHandler->getChunks()){
+            if (chunk->contains(entityLoc)){
+                entity->setChunk(chunk);
+                foundHome = true;
+                break;
+            }
+        }
+
+        if(!foundHome){
+            entity->setChunk(nullptr);
+        }
+    }
 }

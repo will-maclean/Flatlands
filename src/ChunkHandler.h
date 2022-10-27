@@ -19,4 +19,8 @@ public:
     void tick(float fElapsedTime);
 
     void render(Game* game);
+
+    std::vector<Chunk *> getChunks(){
+        return chunks;
+    }
 };

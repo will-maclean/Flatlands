@@ -25,4 +25,6 @@ public:
 	bool tick(float fElapsedTime);
 
 	void render();
+
+	void updateEntityChunk();
 };

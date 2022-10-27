@@ -20,4 +20,8 @@ public:
     void tick(Game* game, float fElapsedTime);
 
     void render(Game* game);
+
+    std::vector<Entity *> getEntities(){
+        return entities;
+    }
 };

@@ -2,7 +2,9 @@
 #include "Game.h"
 #include <stdlib.h>
 
-Tile::Tile(std::string spritePath, bool randomFlip){
+Tile::Tile(std::string spritePath, bool randomFlip, bool mIsSolid){
+    this->mIsSolid = mIsSolid;
+    
     sprTile = std::make_unique<olc::Sprite>(spritePath);
 
     if(randomFlip){
@@ -14,9 +16,9 @@ Tile::Tile(std::string spritePath, bool randomFlip){
     }
 }
 
-Tile::Tile(){
+Tile::Tile(bool mIsSolid){
+    this->mIsSolid = mIsSolid;
     sprTile = nullptr;
-
 }
 
 void Tile::tick(float fElapsedTime){
@@ -32,15 +34,15 @@ void Tile::render(Game* game, olc::vi2d location){
 }
 
 EmptyTile::EmptyTile()
-    : Tile(){
+    : Tile(false){
 }
 
 DirtTile::DirtTile()
-    : Tile("./resources/sprites/pixel_dirt.png", true){
+    : Tile("./resources/sprites/pixel_dirt.png", true, true){
 
     }
 
 GrassyDirtTile::GrassyDirtTile()
-    : Tile("./resources/sprites/pixel_grassy_dirt.png", false){
+    : Tile("./resources/sprites/pixel_grassy_dirt.png", false, true){
 
     }

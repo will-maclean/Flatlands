@@ -2,14 +2,15 @@
 
 #include "Tile.h"
 #include "olcPixelGameEngine.h"
+#include <vector>
 
 class Chunk{
 private:
-    const int height = 64;
-    const int width = 16;
+    const int nTilesHeight = 64;
+    const int nTilesWidth = 16;
 
-    const int tileRenderWidth = 16;
-    const int tileRenderHeight = 16;
+    const int tileWidth = 16;
+    const int tileHeight = 16;
 
     Tile* tileArr[64][16];
 
@@ -23,11 +24,11 @@ public:
     void render(class Game* game);
 
     int getHeight() const {
-        return height;
+        return nTilesHeight;
     }
 
     int getWidth() const {
-        return width;
+        return nTilesWidth;
     }
 
     void setTile(Tile* tile, int x, int y){
@@ -37,4 +38,10 @@ public:
     Tile* getTile(int x, int y) const{
         return this->tileArr[y][x];
     }
+
+    bool contains(olc::vf2d location) const;
+
+    std::vector<Tile *> getCollisionTiles(olc::vf2d testLocation) const;
+
+    
 };
