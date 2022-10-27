@@ -1,4 +1,4 @@
-# TorrorioPP
+# Flatlands
 Terraria-like game written in C++.
 
 ## TODOs:
