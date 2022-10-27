@@ -20,6 +20,8 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override;
 
+	bool processGlobalUserInput();
+
 	bool tick(float fElapsedTime);
 
 	void render();

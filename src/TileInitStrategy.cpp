@@ -21,18 +21,27 @@ void defaultTileInitStrategy(Chunk* chunk){
     
     int threshold = chunk->getHeight() * 0.1;
 
+    bool emptyMap[chunk->getHeight()][chunk->getWidth()];
+
     for(int i = 0; i < chunk->getHeight(); i++){
         for(int j = 0; j < chunk->getWidth(); j++){
             if(i < threshold){
                 // EmptyTile only
                 chunk->setTile(new EmptyTile(), j, i);
+                emptyMap[i][j] = true;
             }else{
                 // 90% dirt, 10% chance empty
                 int r = rand() % 100;
                 if(r < 90){
-                    chunk->setTile(new DirtTile(), j, i);
+                    if(i >=2 && emptyMap[i-1][j] && emptyMap[i-2][j]){
+                        chunk->setTile(new GrassyDirtTile(), j, i);
+                    }else{
+                        chunk->setTile(new DirtTile(), j, i);
+                    }
+                    emptyMap[i][j] = false;
                 }else{
                     chunk->setTile(new EmptyTile(), j, i);
+                    emptyMap[i][j] = true;
                 }
             }
         }

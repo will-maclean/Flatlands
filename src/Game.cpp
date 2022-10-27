@@ -24,9 +24,10 @@ bool Game::OnUserCreate() {
 }
 
 bool Game::OnUserUpdate(float fElapsedTime) {
+    bool shouldContinue = processGlobalUserInput();
 
     // tick the game...
-    bool shouldContinue = tick(fElapsedTime);
+    shouldContinue = shouldContinue && tick(fElapsedTime);
 
     // ...and then render it
     render();
@@ -46,4 +47,14 @@ void Game::render(){
     Clear(BACKGROUND_COLOUR);
     chunkHandler->render(this);
     entityHandler->render(this);
+}
+
+bool Game::processGlobalUserInput(){
+    // do any processing of user input that isn't tied
+    // an entity e.g. quitting the game, bringing up menus, etc.
+    if (GetKey(olc::Key::ESCAPE).bHeld){
+        return false;
+    }
+
+    return true;
 }

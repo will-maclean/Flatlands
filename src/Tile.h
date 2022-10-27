@@ -9,8 +9,10 @@ class Tile{
 private:
     std::unique_ptr<olc::Sprite> sprTile;
 
+    olc::Sprite::Flip flip;
+
 public:
-    Tile(std::string spritePath);
+    Tile(std::string spritePath, bool randomFlip);
     Tile();
 
     void tick(float fElapsedTime);
@@ -26,4 +28,9 @@ public:
 class DirtTile : public Tile{
 public:
     DirtTile();
+};
+
+class GrassyDirtTile : public Tile{
+public:
+    GrassyDirtTile();
 };

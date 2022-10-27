@@ -33,4 +33,8 @@ public:
     void setTile(Tile* tile, int x, int y){
         this->tileArr[y][x] = tile;
     }
+
+    Tile* getTile(int x, int y) const{
+        return this->tileArr[y][x];
+    }
 };
