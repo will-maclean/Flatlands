@@ -1,11 +1,15 @@
 #include "Entity.h"
 #include "Game.h"
+#include "CollisionUtils.h"
+#include <iostream>
 
-Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath){
+Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height){
     this->name = name;
     this->location = location;
     this->velocity = velocity;
     this->health = health;
+    this->width = width;
+    this->height = height;
 
     sprTile = std::make_unique<olc::Sprite>(spritePath);
 }
@@ -21,7 +25,7 @@ void Entity::tick(Game* game, float fElapsedTime){
 
     olc::vf2d testLocation = location + fElapsedTime * velocity;
 
-    std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(testLocation);
+    std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this);
 
     olc::vf2d newLocation;
 
@@ -32,7 +36,7 @@ void Entity::tick(Game* game, float fElapsedTime){
         // collision! we'll have to sort this out.
 
         // easiest solution is to just not move the entity
-        newLocation = location;
+        newLocation = getNewLocation(collisionTiles, this, game->getTouchThreshold(), testLocation, location);
 
     }
 

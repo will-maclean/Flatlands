@@ -31,6 +31,14 @@ public:
         return nTilesWidth;
     }
 
+    int getTileWidth() const {
+        return tileWidth;
+    }
+
+    int getTileHeight() const {
+        return tileHeight;
+    }
+
     void setTile(Tile* tile, int x, int y){
         this->tileArr[y][x] = tile;
     }
@@ -38,10 +46,14 @@ public:
     Tile* getTile(int x, int y) const{
         return this->tileArr[y][x];
     }
+    
+    olc::vf2d getAnchorLocation() const{
+        return anchorLocation;
+    }
 
     bool contains(olc::vf2d location) const;
 
-    std::vector<Tile *> getCollisionTiles(olc::vf2d testLocation) const;
+    std::vector<Tile *> getCollisionTiles(Entity* entity) const;
 
     
 };

@@ -19,7 +19,7 @@ void Chunk::tick(float fElapsedTime){
 }
 
 void Chunk::render(Game* game){
-    // tick all the tiles
+    // render all the tiles
     for(int i = 0; i < nTilesHeight; i++){
         for(int j = 0; j < nTilesWidth; j++){
             tileArr[i][j]->render(game, {anchorLocation.x + j * tileWidth, anchorLocation.y + i * tileHeight});
@@ -40,26 +40,32 @@ bool Chunk::contains(olc::vf2d location) const{
     return (xMin <= location.x) && (location.x <= xMax) && (yMin <= location.y) && (location.y <= yMax);
 }
 
-std::vector<Tile *> Chunk::getCollisionTiles(olc::vf2d testLocation) const{
+
+std::vector<Tile *> Chunk::getCollisionTiles(Entity* entity) const{
     // For now, just testing point collision, rather than solid collision
     
     std::vector<Tile *> collisionTiles;
 
-    if(!contains(testLocation)){
+    if(!contains(entity->getLocation())){
         // if the location isn't even in the chunk,
         // then obviously there are no collisions
-        return collisionTiles;
+       return collisionTiles;
     }
 
-    // the location is inside the chunk. Get the tile at the 
-    // chunk's location and see if it is solid or not
-    int xIdx = (testLocation.x - anchorLocation.x) / tileWidth;
-    int yIdx = (testLocation.y - anchorLocation.y) / tileHeight;
+    std::cout << "Entity Location: " << entity->getLocation() << std::endl;
+    
+    // loop through all of the tiles (could optimise later?)
+    for(int i = 0; i < nTilesHeight; i++){
+        for(int j = 0; j < nTilesWidth; j++){
+            Tile* locationTile = getTile(j, i);
 
-    Tile* locationTile = getTile(xIdx, yIdx);
-
-    if (locationTile->isSolid()){
-        collisionTiles.push_back(locationTile);
+            // if the entity is colliding with the tile, and the tile is solid, add it to 
+            // the vector of collision tiles
+            if (locationTile->entityCollision(entity) && locationTile->isSolid()){
+                std::cout << "collision with tile at " << locationTile->getAnchorLocation() << std::endl;
+                collisionTiles.push_back(locationTile);
+            }
+        }
     }
 
     return collisionTiles;

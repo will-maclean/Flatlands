@@ -1,9 +1,11 @@
 #include "Tile.h"
 #include "Game.h"
 #include <stdlib.h>
+#include "Entity.h"
 
-Tile::Tile(std::string spritePath, bool randomFlip, bool mIsSolid){
+Tile::Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bool mIsSolid){
     this->mIsSolid = mIsSolid;
+    this->anchorLocation = anchorLocation;
     
     sprTile = std::make_unique<olc::Sprite>(spritePath);
 
@@ -16,7 +18,8 @@ Tile::Tile(std::string spritePath, bool randomFlip, bool mIsSolid){
     }
 }
 
-Tile::Tile(bool mIsSolid){
+Tile::Tile(olc::vf2d anchorLocation, bool mIsSolid){
+    this->anchorLocation = anchorLocation;
     this->mIsSolid = mIsSolid;
     sprTile = nullptr;
 }
@@ -33,16 +36,24 @@ void Tile::render(Game* game, olc::vi2d location){
     }
 }
 
-EmptyTile::EmptyTile()
-    : Tile(false){
+bool Tile::entityCollision(Entity* entity){
+    return ((entity->getLocation().x < anchorLocation.x + getTileWidth()) 
+                && (anchorLocation.x < entity->getLocation().x + entity->getWidth()))
+                && ((entity->getLocation().y < anchorLocation.y + getTileHeight()) 
+                && (anchorLocation.y < entity->getLocation().y + entity->getHeight()));
+            
 }
 
-DirtTile::DirtTile()
-    : Tile("./resources/sprites/pixel_dirt.png", true, true){
+EmptyTile::EmptyTile(olc::vf2d anchorLocation)
+    : Tile(anchorLocation, false){
+}
+
+DirtTile::DirtTile(olc::vf2d anchorLocation)
+    : Tile(anchorLocation, "./resources/sprites/pixel_dirt.png", true, true){
 
     }
 
-GrassyDirtTile::GrassyDirtTile()
-    : Tile("./resources/sprites/pixel_grassy_dirt.png", false, true){
+GrassyDirtTile::GrassyDirtTile(olc::vf2d anchorLocation)
+    : Tile(anchorLocation, "./resources/sprites/pixel_grassy_dirt.png", false, true){
 
     }

@@ -9,6 +9,8 @@ class Chunk;
 class Entity{
 private:
     const float gravity = 5.0f;
+    float width, height;
+
 protected:
     std::string name;
     olc::vf2d location;
@@ -21,7 +23,7 @@ protected:
     Chunk* currChunk;
 
 public:
-    Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath);
+    Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height);
     
     virtual void tick(Game* game, float fElapsedTime);
     void render(Game* game);
@@ -36,5 +38,13 @@ public:
 
     olc::vf2d getLocation() const {
         return location;
+    }
+
+    float getWidth() const {
+        return width;
+    }
+
+    float getHeight() const {
+        return height;
     }
 };

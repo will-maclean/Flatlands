@@ -4,16 +4,21 @@
 #include "olcPixelGameEngine.h"
 
 class Game;
+class Entity;
 
 class Tile{
 private:
     std::unique_ptr<olc::Sprite> sprTile;
     bool mIsSolid;
     olc::Sprite::Flip flip;
+    olc::vf2d anchorLocation;
+
+    int tileWidth = 16;  //TODO: fix this
+    int tileHeight = 16;
 
 public:
-    Tile(std::string spritePath, bool randomFlip, bool mIsSolid);
-    Tile(bool mIsSolid);
+    Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bool mIsSolid);
+    Tile(olc::vf2d anchorLocation, bool mIsSolid);
 
     void tick(float fElapsedTime);
 
@@ -22,19 +27,33 @@ public:
     bool isSolid() const{
         return this->mIsSolid;
     }
+    
+    int getTileWidth() const {
+        return tileWidth;
+    }
+
+    int getTileHeight() const {
+        return tileHeight;
+    }
+
+    olc::vf2d getAnchorLocation() const {
+        return anchorLocation;
+    }
+
+    bool entityCollision(Entity* entity);
 };
 
 class EmptyTile : public Tile{
 public:
-    EmptyTile();
+    EmptyTile(olc::vf2d anchorLocation);
 };
 
 class DirtTile : public Tile{
 public:
-    DirtTile();
+    DirtTile(olc::vf2d anchorLocation);
 };
 
 class GrassyDirtTile : public Tile{
 public:
-    GrassyDirtTile();
+    GrassyDirtTile(olc::vf2d anchorLocation);
 };
