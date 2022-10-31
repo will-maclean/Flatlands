@@ -1,11 +1,11 @@
 
 
 cmake_minimum_required(VERSION 3.7)
-project(olcPixelGameEngine)
+project(Flatlands)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} CMakeFiles/)
 
-set(Executable output)
+set(Executable Flatlands)
 set(SourceDir src) # Change src/ to your source directory
 
 set(IncludeDir include/) # Change include/ to your include directory
