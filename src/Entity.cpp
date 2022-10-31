@@ -21,11 +21,13 @@ void Entity::render(Game* game){
 
 void Entity::tick(Game* game, float fElapsedTime){
     // update the position based on the velocity
-    velocity.y += gravity;
+    if(!touchingGround){
+        velocity.y += gravity;
+    }
 
     olc::vf2d testLocation = location + fElapsedTime * velocity;
 
-    std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this);
+    std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this, testLocation);
 
     olc::vf2d newLocation;
 
@@ -41,4 +43,35 @@ void Entity::tick(Game* game, float fElapsedTime){
     }
 
     location = newLocation;
+
+    // now that we've set the location of the entity, check if we're touching the 
+    // ground
+    detectTouchingGround(game->getTouchThreshold());
+
+    if(touchingGround){
+        canJump = true;
+        touchingGround = true;
+    }
+}
+
+void Entity::detectTouchingGround(float touchThreshold){
+    //TODO: why does this feel so janky in so many ways?
+
+    // check if we're close enough to the ground to be called "touching"
+
+    // just check all the tiles for now because I'm lazy and can't be bothered optimising
+    for(int i = 0; i < currChunk->getWidth(); i++){
+        for(int j = 0; j < currChunk->getHeight(); j++){
+            Tile* currTile = currChunk->getTile(j, i);
+
+            if(currTile->entityStandingOn(this, touchThreshold)){
+                touchingGround = true;
+                canJump = true;
+                return;
+            }
+        }
+    }
+
+    touchingGround = false;
+    canJump = false;
 }

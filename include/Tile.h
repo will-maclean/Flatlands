@@ -40,7 +40,9 @@ public:
         return anchorLocation;
     }
 
-    bool entityCollision(Entity* entity);
+    bool entityCollision(Entity* entity, olc::vf2d testLocation);
+
+    bool entityStandingOn(Entity* entity, float touchThreshold);
 };
 
 class EmptyTile : public Tile{

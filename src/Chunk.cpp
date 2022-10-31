@@ -41,18 +41,18 @@ bool Chunk::contains(olc::vf2d location) const{
 }
 
 
-std::vector<Tile *> Chunk::getCollisionTiles(Entity* entity) const{
+std::vector<Tile *> Chunk::getCollisionTiles(Entity* entity, olc::vf2d testLocation) const{
     // For now, just testing point collision, rather than solid collision
     
     std::vector<Tile *> collisionTiles;
 
-    if(!contains(entity->getLocation())){
+    if(!contains(testLocation)){
         // if the location isn't even in the chunk,
         // then obviously there are no collisions
        return collisionTiles;
     }
 
-    std::cout << "Entity Location: " << entity->getLocation() << std::endl;
+    // std::cout << "Entity Location: " << entity->getLocation() << std::endl;
     
     // loop through all of the tiles (could optimise later?)
     for(int i = 0; i < nTilesHeight; i++){
@@ -61,8 +61,8 @@ std::vector<Tile *> Chunk::getCollisionTiles(Entity* entity) const{
 
             // if the entity is colliding with the tile, and the tile is solid, add it to 
             // the vector of collision tiles
-            if (locationTile->entityCollision(entity) && locationTile->isSolid()){
-                std::cout << "collision with tile at " << locationTile->getAnchorLocation() << std::endl;
+            if (locationTile->entityCollision(entity, testLocation) && locationTile->isSolid()){
+                // std::cout << "collision with tile at " << locationTile->getAnchorLocation() << std::endl;
                 collisionTiles.push_back(locationTile);
             }
         }

@@ -53,7 +53,7 @@ public:
 
     bool contains(olc::vf2d location) const;
 
-    std::vector<Tile *> getCollisionTiles(Entity* entity) const;
+    std::vector<Tile *> getCollisionTiles(Entity* entity, olc::vf2d testLocation) const;
 
     
 };

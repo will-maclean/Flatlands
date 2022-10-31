@@ -8,8 +8,10 @@ class Chunk;
 
 class Entity{
 private:
-    const float gravity = 5.0f;
+    const float gravity = 1.0f;
     float width, height;
+
+    void detectTouchingGround(float touchThreshold);
 
 protected:
     std::string name;
@@ -17,6 +19,8 @@ protected:
     olc::vf2d velocity;
     float health;
 
+    bool touchingGround = false;
+    bool canJump = false;
 
     std::unique_ptr<olc::Sprite> sprTile;
 

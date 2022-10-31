@@ -36,12 +36,19 @@ void Tile::render(Game* game, olc::vi2d location){
     }
 }
 
-bool Tile::entityCollision(Entity* entity){
+bool Tile::entityCollision(Entity* entity, olc::vf2d testLocation){
+    return ((testLocation.x < anchorLocation.x + getTileWidth()) 
+                && (anchorLocation.x < testLocation.x + entity->getWidth()))
+                && ((testLocation.y < anchorLocation.y + getTileHeight()) 
+                && (anchorLocation.y < testLocation.y + entity->getHeight()));
+            
+}
+
+bool Tile::entityStandingOn(Entity* entity, float touchThreshold){
     return ((entity->getLocation().x < anchorLocation.x + getTileWidth()) 
                 && (anchorLocation.x < entity->getLocation().x + entity->getWidth()))
-                && ((entity->getLocation().y < anchorLocation.y + getTileHeight()) 
-                && (anchorLocation.y < entity->getLocation().y + entity->getHeight()));
-            
+                && ((entity->getLocation().y + entity->getHeight() < anchorLocation.y) 
+                && (anchorLocation.y + touchThreshold < entity->getLocation().y + entity->getHeight()));
 }
 
 EmptyTile::EmptyTile(olc::vf2d anchorLocation)
