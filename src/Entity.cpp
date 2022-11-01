@@ -33,6 +33,8 @@ void Entity::tick(Game* game, float fElapsedTime){
 
     olc::vf2d newLocation;
 
+    std::cout << "collisions: " << collisionTiles.size() << std::endl;
+    
     if(collisionTiles.size() == 0){
         // no collisions! beauty
         newLocation = testLocation;

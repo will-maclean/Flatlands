@@ -22,8 +22,12 @@ void Player::tick(Game* game, float fElapsedTime) {
 	if (game->GetKey(olc::Key::RIGHT).bHeld) inputVel.x += MAX_SPEED;
 
     // up down
-    if (game->GetKey(olc::Key::UP).bHeld && canJump) inputVel.y -= JUMP_VEL;
-
+    std::cout << "Can we jump? " << canJump << std::endl;
+    std::cout << "touchingGround " << touchingGround << std::endl;
+    if (game->GetKey(olc::Key::UP).bHeld && canJump){
+         inputVel.y -= JUMP_VEL;
+         std::cout << "jumping" << std::endl;
+    }
     velocity += inputVel;
 
     Entity::tick(game, fElapsedTime);

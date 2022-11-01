@@ -5,6 +5,11 @@ project(Flatlands)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} CMakeFiles/)
 
+# let YCM do cool stuff for us
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
 set(Executable Flatlands)
 set(SourceDir src) # Change src/ to your source directory
 

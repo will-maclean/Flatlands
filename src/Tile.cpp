@@ -2,7 +2,6 @@
 #include "Game.h"
 #include <stdlib.h>
 #include <memory>
-#include <iostream>
 #include "Entity.h"
 
 Tile::Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bool mIsSolid)
@@ -47,16 +46,7 @@ bool Tile::entityCollision(Entity* entity, olc::vf2d testLocation){
 bool Tile::entityStandingOn(Entity* entity, float touchThreshold){
     std::unique_ptr<Rectangle> entityRect = entity->getRectangle();
     std::shared_ptr<Rectangle> touchRect = std::shared_ptr<Rectangle>(new Rectangle({anchorLocation.x, anchorLocation.y - touchThreshold}, getTileWidth(), touchThreshold));
-    bool standing =  entityRect->collision(touchRect) && mIsSolid;
-
-    if (standing){
-        std::cout << "Player at " << entity->getLocation() << std::endl;
-        std::cout << "Standing on block at " << anchorLocation << std::endl;
-        std::cout << "Entity rectange anchor: " << entityRect->getAnchorLocation() << ", width: " << entityRect->getWidth() << ", height: " << entityRect->getHeight() << std::endl;
-        std::cout << "Tile rectange anchor: " << touchRect->getAnchorLocation() << ", width: " << touchRect->getWidth() << ", height: " << touchRect->getHeight() << std::endl;
-    }
-
-    return standing;
+    return entityRect->collision(touchRect) && mIsSolid;
 }
 
 EmptyTile::EmptyTile(olc::vf2d anchorLocation)
