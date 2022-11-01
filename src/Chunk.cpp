@@ -9,6 +9,16 @@ Chunk::Chunk(olc::vi2d anchorLocation){
     defaultTileInitStrategy(this);
 }
 
+Chunk::~Chunk(){
+    for(int i = 0; i < nTilesHeight; i++){
+        for(int j = 0; j < nTilesWidth; j++){
+            if(tileArr[i][j]){
+                delete tileArr[i][j];
+            }
+        }
+    }
+}
+
 void Chunk::tick(float fElapsedTime){
     // tick all the tiles
     for(int i = 0; i < nTilesHeight; i++){

@@ -6,16 +6,11 @@
 
 class Game : public olc::PixelGameEngine
 {
-private:
-	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}
-    const float touchThreshold = 0.1f;
-    olc::vf2d gamePos;
-
-	EntityHandler* entityHandler;
-	ChunkHandler* chunkHandler;
 
 public:
 	Game();
+
+	~Game();
 
 	bool OnUserCreate() override;
 
@@ -32,4 +27,11 @@ public:
     float getTouchThreshold() const{
         return touchThreshold;
     }
+private:
+	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}
+    const float touchThreshold = 0.1f;
+    olc::vf2d gamePos;
+
+	EntityHandler* entityHandler;
+	ChunkHandler* chunkHandler;
 };

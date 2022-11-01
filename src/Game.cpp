@@ -20,6 +20,11 @@ Game::Game(){
     chunkHandler->addChunk(new Chunk({0, 0}));
 }
 
+Game::~Game(){
+    delete entityHandler;
+    delete chunkHandler;
+}
+
 bool Game::OnUserCreate() {
     return true;
 }

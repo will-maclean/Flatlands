@@ -5,20 +5,11 @@
 #include <vector>
 
 class Chunk{
-private:
-    const int nTilesHeight = 64;
-    const int nTilesWidth = 16;
-
-    const int tileWidth = 16;
-    const int tileHeight = 16;
-
-    Tile* tileArr[64][16];
-
-    // stores the location of the top left of the chunk (locked to integers for easier rendering)
-    olc::vi2d anchorLocation;
 
 public:
     Chunk(olc::vi2d anchorLocation);
+
+    ~Chunk();
 
     void tick(float fElapsedTime);
     void render(class Game* game);
@@ -55,5 +46,16 @@ public:
 
     std::vector<Tile *> getCollisionTiles(Entity* entity, olc::vf2d testLocation) const;
 
+private:
+    const int nTilesHeight = 64;
+    const int nTilesWidth = 16;
+
+    const int tileWidth = 16;
+    const int tileHeight = 16;
+
+    Tile* tileArr[64][16];
+
+    // stores the location of the top left of the chunk (locked to integers for easier rendering)
+    olc::vi2d anchorLocation;
     
 };
