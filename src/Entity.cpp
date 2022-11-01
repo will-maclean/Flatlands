@@ -1,7 +1,9 @@
 #include "Entity.h"
 #include "Game.h"
 #include "CollisionUtils.h"
+#include "CollisionObjects.h"
 #include <iostream>
+#include <memory>
 
 Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height){
     this->name = name;
@@ -74,4 +76,8 @@ void Entity::detectTouchingGround(float touchThreshold){
 
     touchingGround = false;
     canJump = false;
+}
+
+std::unique_ptr<Rectangle> Entity::getRectangle(){
+    return std::unique_ptr<Rectangle>(new Rectangle(location, width, height)); 
 }

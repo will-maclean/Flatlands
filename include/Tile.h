@@ -2,11 +2,12 @@
 
 #include <string>
 #include "olcPixelGameEngine.h"
+#include "CollisionObjects.h"
 
 class Game;
 class Entity;
 
-class Tile{
+class Tile : public Rectangle{
 private:
     std::unique_ptr<olc::Sprite> sprTile;
     bool mIsSolid;

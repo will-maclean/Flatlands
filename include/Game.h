@@ -8,7 +8,7 @@ class Game : public olc::PixelGameEngine
 {
 private:
 	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}
-    const float touchThreshold = 0.2f;
+    const float touchThreshold = 0.1f;
     olc::vf2d gamePos;
 
 	EntityHandler* entityHandler;

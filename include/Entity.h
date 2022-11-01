@@ -1,10 +1,12 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include "olcPixelGameEngine.h"
 
 class Game;
 class Chunk;
+class Rectangle;
 
 class Entity{
 private:
@@ -51,4 +53,6 @@ public:
     float getHeight() const {
         return height;
     }
+
+    std::unique_ptr<Rectangle> getRectangle();
 };
