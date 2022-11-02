@@ -11,6 +11,6 @@ public:
     void tick(Game* game, float fElapsedTime) override;
 private:
     const float MAX_SPEED = 15.0f;
-    const float JUMP_VEL = 5;
+    const float JUMP_VEL = 50;
     olc::vf2d inputVel;
 };

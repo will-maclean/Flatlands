@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "CollisionUtils.h"
 #include "CollisionObjects.h"
-#include <iostream>
 #include <memory>
 
 Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height){
@@ -32,8 +31,6 @@ void Entity::tick(Game* game, float fElapsedTime){
     std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this, testLocation);
 
     olc::vf2d newLocation;
-
-    std::cout << "collisions: " << collisionTiles.size() << std::endl;
     
     if(collisionTiles.empty()){
         // no collisions! beauty
@@ -43,7 +40,7 @@ void Entity::tick(Game* game, float fElapsedTime){
 
         // easiest solution is to just not move the entity
         newLocation = getNewLocation(collisionTiles, this, game->getTouchThreshold(), testLocation, location);
-        velocity = {0, 0};  // if there's a collision, stop moving
+        velocity.y = 0;  // if there's a collision, stop moving
     }
 
     location = newLocation;

@@ -2,8 +2,6 @@
 #include "Game.h"
 #include "olcPixelGameEngine.h"
 
-#include <iostream>
-
 Player::Player(std::string name, olc::vf2d location)
 : Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 16, 16){
 
@@ -22,12 +20,13 @@ void Player::tick(Game* game, float fElapsedTime) {
 	if (game->GetKey(olc::Key::RIGHT).bHeld) inputVel.x += MAX_SPEED;
 
     // up down
-    std::cout << "Can we jump? " << canJump << std::endl;
-    std::cout << "touchingGround " << touchingGround << std::endl;
     if (game->GetKey(olc::Key::UP).bHeld && canJump){
-         inputVel.y -= JUMP_VEL;
-         std::cout << "jumping" << std::endl;
+        velocity.y -= JUMP_VEL;
     }
+    if(inputVel.mag() > 0){
+        inputVel = MAX_SPEED * inputVel.norm();
+    }
+
     velocity += inputVel;
 
     Entity::tick(game, fElapsedTime);
