@@ -2,7 +2,7 @@
 #include "Chunk.h"
 #include "Tile.h"
 #include "olcPixelGameEngine.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 void fillAll(Chunk* chunk){
     olc::vf2d chunkAnchorLocation = chunk->getAnchorLocation();
@@ -37,8 +37,8 @@ void defaultTileInitStrategy(Chunk* chunk){
                 emptyMap[i][j] = true;
             }else{
                 // 90% dirt, 10% chance empty
-                int r = rand() % 100;
-                if(r < 85){
+                int r = std::rand() % 100;
+                if(r < 80){
                     if(i >=2 && emptyMap[i-1][j] && emptyMap[i-2][j]){
                         chunk->setTile(new GrassyDirtTile(anchorLocation), j, i);
                     }else{

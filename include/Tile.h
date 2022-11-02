@@ -37,9 +37,10 @@ public:
     bool entityStandingOn(Entity* entity, float touchThreshold);
 
 private:
-    std::unique_ptr<olc::Sprite> sprTile;
+    std::unique_ptr<olc::Sprite> sprFragment;
+    std::unique_ptr<olc::Decal> decalTile;
     bool mIsSolid;
-    olc::Sprite::Flip flip;
+    float decalRotate;
     olc::vf2d anchorLocation;
 
     int tileWidth = 16;  //TODO: fix this

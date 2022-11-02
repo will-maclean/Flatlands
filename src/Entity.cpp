@@ -2,7 +2,9 @@
 #include "Game.h"
 #include "CollisionUtils.h"
 #include "CollisionObjects.h"
+#include "MathUtils.h"
 #include <memory>
+#include <iostream>
 
 Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height){
     this->name = name;
@@ -12,12 +14,14 @@ Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float h
     this->width = width;
     this->height = height;
 
-    sprTile = std::make_unique<olc::Sprite>(spritePath);
+    decalTile = std::make_unique<olc::Decal>(std::make_unique<olc::Sprite>(spritePath).get());
 }
 
 void Entity::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
-    game->DrawSprite(location, sprTile.get());
+    olc::vf2d drawPos = location + game->getRenderOffset();
+    std::cout << drawPos << std::endl;
+    game->DrawDecal(drawPos, decalTile.get());
 }
 
 void Entity::tick(Game* game, float fElapsedTime){
@@ -26,7 +30,9 @@ void Entity::tick(Game* game, float fElapsedTime){
         velocity.y += gravity;
     }
 
-    olc::vf2d testLocation = location + fElapsedTime * velocity;
+    olc::vf2d dummyLocation = location + fElapsedTime * velocity;
+
+    olc::vf2d testLocation = {dummyLocation.x, clip(dummyLocation.y, game->getWorldMin(), game->getWorldMax())};
 
     std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this, testLocation);
 

@@ -1,6 +1,5 @@
 #include "Tile.h"
 #include "Game.h"
-#include <stdlib.h>
 #include <memory>
 #include "Entity.h"
 
@@ -8,15 +7,18 @@ Tile::Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bo
     : Rectangle(anchorLocation, 16, 16){
     this->mIsSolid = mIsSolid;
     this->anchorLocation = anchorLocation;
-    
-    sprTile = std::make_unique<olc::Sprite>(spritePath);
+
+    sprFragment = std::make_unique<olc::Sprite>(spritePath);
+
+    // Create decal of fragment
+    decalTile = std::make_unique<olc::Decal>(sprFragment.get());
 
     if(randomFlip){
-        int flipType = rand() % 3;
+        int flipType = rand() % 4;
 
-        flip = olc::Sprite::Flip(flipType);
+        decalRotate = flipType * 1.5708; // 1.5708 = 90 degrees in radians
     }else{
-        flip = olc::Sprite::Flip(0);
+        decalRotate = 0;
     }
 }
 
@@ -24,7 +26,7 @@ Tile::Tile(olc::vf2d anchorLocation, bool mIsSolid)
     : Rectangle(anchorLocation, 16, 16){
     this->anchorLocation = anchorLocation;
     this->mIsSolid = mIsSolid;
-    sprTile = nullptr;
+    decalTile = nullptr;
 }
 
 void Tile::tick(float fElapsedTime){
@@ -33,8 +35,9 @@ void Tile::tick(float fElapsedTime){
 
 void Tile::render(Game* game, olc::vi2d location){
     // just render the sprite, if defined
-    if(sprTile != nullptr){
-        game->DrawSprite(location, sprTile.get(), 1, flip);
+    if(decalTile){
+        olc::vf2d offsetLoc = {8, 8};
+        game->DrawRotatedDecal(location + offsetLoc - game->getRenderOffset(), decalTile.get(), decalRotate, offsetLoc);
         // game->DrawSprite()
     }
 }

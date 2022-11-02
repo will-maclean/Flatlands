@@ -37,7 +37,7 @@ endif (WIN32)
 
 add_executable(${Executable}
         ${SourceFiles}
-        )
+        include/MathUtils.h)
 
 link_libraries(${Executable}
         Threads::Threads

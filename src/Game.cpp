@@ -7,17 +7,6 @@
 
 Game::Game(){
     sAppName = "TerrariaPP";
-
-    gamePos = {0.0f, 0.0f};
-    
-    entityHandler = new EntityHandler();
-    chunkHandler = new ChunkHandler();
-
-    // create a player and add the player to the game
-    entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
-
-    // Create a chunkg and add it to the game
-    chunkHandler->addChunk(new Chunk({0, 0}));
 }
 
 Game::~Game(){
@@ -26,6 +15,17 @@ Game::~Game(){
 }
 
 bool Game::OnUserCreate() {
+    gamePos = {0.0f, 0.0f};
+
+    entityHandler = new EntityHandler();
+    chunkHandler = new ChunkHandler();
+
+    // create a player and add the player to the game
+    entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
+
+    // Create a chunkg and add it to the game
+    chunkHandler->addChunk(new Chunk({0, 0}));
+
     return true;
 }
 

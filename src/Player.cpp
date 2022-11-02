@@ -30,4 +30,11 @@ void Player::tick(Game* game, float fElapsedTime) {
     velocity += inputVel;
 
     Entity::tick(game, fElapsedTime);
+
+    game->setGamePos(location);
+}
+
+void Player::render(Game* game){
+    game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
+    game->DrawDecal(game->getCentrePos(), decalTile.get());
 }

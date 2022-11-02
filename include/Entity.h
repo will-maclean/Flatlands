@@ -13,7 +13,7 @@ public:
     Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height);
     
     virtual void tick(Game* game, float fElapsedTime);
-    void render(Game* game);
+    virtual void render(Game* game);
 
     void setChunk(Chunk* chunk){
         this->currChunk = chunk;
@@ -46,7 +46,7 @@ protected:
     bool touchingGround = false;
     bool canJump = false;
 
-    std::unique_ptr<olc::Sprite> sprTile;
+    std::unique_ptr<olc::Decal> decalTile;
 
     Chunk* currChunk;
 
