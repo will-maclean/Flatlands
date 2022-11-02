@@ -7,9 +7,6 @@
 class Game;
 
 class EntityHandler{
-private:
-    std::vector<Entity *> entities;
-
 public:
     EntityHandler();
 
@@ -24,4 +21,7 @@ public:
     std::vector<Entity *> getEntities(){
         return entities;
     }
+
+private:
+    std::vector<Entity *> entities;
 };

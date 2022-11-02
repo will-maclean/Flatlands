@@ -5,11 +5,6 @@
 
 
 class Rectangle {
-private:
-    olc::vf2d anchorLocation;
-    float width;
-    float height;
-
 public:
     Rectangle(olc::vf2d anchorLocation, float width, float height){
         this->anchorLocation = anchorLocation;
@@ -51,4 +46,9 @@ public:
     float getHeight() const {
         return height;
     }
+
+private:
+    olc::vf2d anchorLocation;
+    float width;
+    float height;
 };

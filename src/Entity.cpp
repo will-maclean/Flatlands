@@ -35,7 +35,7 @@ void Entity::tick(Game* game, float fElapsedTime){
 
     std::cout << "collisions: " << collisionTiles.size() << std::endl;
     
-    if(collisionTiles.size() == 0){
+    if(collisionTiles.empty()){
         // no collisions! beauty
         newLocation = testLocation;
     }else{
@@ -43,7 +43,7 @@ void Entity::tick(Game* game, float fElapsedTime){
 
         // easiest solution is to just not move the entity
         newLocation = getNewLocation(collisionTiles, this, game->getTouchThreshold(), testLocation, location);
-
+        velocity = {0, 0};  // if there's a collision, stop moving
     }
 
     location = newLocation;

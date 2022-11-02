@@ -6,9 +6,6 @@
 class Game;
 
 class ChunkHandler{
-private:
-    std::vector<Chunk *> chunks;
-
 public:
     ChunkHandler();
 
@@ -23,4 +20,7 @@ public:
     std::vector<Chunk *> getChunks(){
         return chunks;
     }
+private:
+    std::vector<Chunk *> chunks;
+
 };

@@ -8,15 +8,6 @@ class Game;
 class Entity;
 
 class Tile : public Rectangle{
-private:
-    std::unique_ptr<olc::Sprite> sprTile;
-    bool mIsSolid;
-    olc::Sprite::Flip flip;
-    olc::vf2d anchorLocation;
-
-    int tileWidth = 16;  //TODO: fix this
-    int tileHeight = 16;
-
 public:
     Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bool mIsSolid);
     Tile(olc::vf2d anchorLocation, bool mIsSolid);
@@ -44,6 +35,15 @@ public:
     bool entityCollision(Entity* entity, olc::vf2d testLocation);
 
     bool entityStandingOn(Entity* entity, float touchThreshold);
+
+private:
+    std::unique_ptr<olc::Sprite> sprTile;
+    bool mIsSolid;
+    olc::Sprite::Flip flip;
+    olc::vf2d anchorLocation;
+
+    int tileWidth = 16;  //TODO: fix this
+    int tileHeight = 16;
 };
 
 class EmptyTile : public Tile{

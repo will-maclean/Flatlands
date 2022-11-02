@@ -4,9 +4,7 @@
 #include "EntityHandler.h"
 #include "ChunkHandler.h"
 
-class Game : public olc::PixelGameEngine
-{
-
+class Game : public olc::PixelGameEngine{
 public:
 	Game();
 

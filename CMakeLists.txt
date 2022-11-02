@@ -18,7 +18,6 @@ include_directories(${IncludeDir})
 
 file(GLOB_RECURSE SourceFiles
         ${SourceDir}/*.cpp
-        olcExampleProgram.cpp # Remove this
         )
 
 set(THREADS_PREFER_PTHREAD_FLAD ON)

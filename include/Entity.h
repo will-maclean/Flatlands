@@ -9,25 +9,6 @@ class Chunk;
 class Rectangle;
 
 class Entity{
-private:
-    const float gravity = 1.0f;
-    float width, height;
-
-    void detectTouchingGround(float touchThreshold);
-
-protected:
-    std::string name;
-    olc::vf2d location;
-    olc::vf2d velocity;
-    float health;
-
-    bool touchingGround = false;
-    bool canJump = false;
-
-    std::unique_ptr<olc::Sprite> sprTile;
-
-    Chunk* currChunk;
-
 public:
     Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height);
     
@@ -55,4 +36,23 @@ public:
     }
 
     std::unique_ptr<Rectangle> getRectangle();
+
+protected:
+    std::string name;
+    olc::vf2d location;
+    olc::vf2d velocity;
+    float health;
+
+    bool touchingGround = false;
+    bool canJump = false;
+
+    std::unique_ptr<olc::Sprite> sprTile;
+
+    Chunk* currChunk;
+
+private:
+    const float gravity = 0.1f;
+    float width, height;
+
+    void detectTouchingGround(float touchThreshold);
 };
