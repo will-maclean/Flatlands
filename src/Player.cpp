@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 #include "olcPixelGameEngine.h"
+#include "MathUtils.h"
 
 Player::Player(std::string name, olc::vf2d location)
 : Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 16, 16){

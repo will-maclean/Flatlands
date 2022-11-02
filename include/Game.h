@@ -30,6 +30,10 @@ public:
         this->gamePos = gamePos;
     }
 
+    olc::vf2d getGamePos() const {
+        return gamePos;
+    }
+
     olc::vf2d getRenderOffset(){
         return gamePos - centreSpot;
     }

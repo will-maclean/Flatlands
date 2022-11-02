@@ -18,7 +18,7 @@ bool Game::OnUserCreate() {
     gamePos = {0.0f, 0.0f};
 
     entityHandler = new EntityHandler();
-    chunkHandler = new ChunkHandler();
+    chunkHandler = new ChunkHandler(200);
 
     // create a player and add the player to the game
     entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
@@ -43,7 +43,7 @@ bool Game::OnUserUpdate(float fElapsedTime) {
 
 bool Game::tick(float fElapsedTime){
     updateEntityChunk();
-    chunkHandler->tick(fElapsedTime);
+    chunkHandler->tick(this, fElapsedTime);
     entityHandler->tick(this, fElapsedTime);
 
     return true;
@@ -87,19 +87,13 @@ void Game::updateEntityChunk(){
             }
         }
 
-        bool foundHome = false;
         // looks like the current chunk either isn't set, or doesn't contain
         // the entity. Let's see if we can find a home for the entity.
         for(auto chunk : chunkHandler->getChunks()){
             if (chunk->contains(entityLoc)){
                 entity->setChunk(chunk);
-                foundHome = true;
                 break;
             }
-        }
-
-        if(!foundHome){
-            entity->setChunk(nullptr);
         }
     }
 }

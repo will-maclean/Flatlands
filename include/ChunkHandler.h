@@ -7,13 +7,13 @@ class Game;
 
 class ChunkHandler{
 public:
-    ChunkHandler();
+    ChunkHandler(float createNewChunkDistance);
 
     void addChunk(Chunk* entity);
 
     // void removeEntity(Entity* entity);
 
-    void tick(float fElapsedTime);
+    void tick(Game* game, float fElapsedTime);
 
     void render(Game* game);
 
@@ -23,4 +23,10 @@ public:
 private:
     std::vector<Chunk *> chunks;
 
+    Chunk* leftMostChunk;
+    Chunk* rightMostChunk;
+
+    float createNewChunkDistance;
+
+    void checkCreateNewChunks(Game* game);
 };

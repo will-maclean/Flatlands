@@ -43,8 +43,8 @@ bool Chunk::contains(olc::vf2d location) const{
     // we'll still check the y coords in case this 
     // assumption changes in the future
     float xMin = anchorLocation.x;
-    float xMax = anchorLocation.y + nTilesWidth * tileWidth;
-    float yMin = anchorLocation.x ;
+    float xMax = anchorLocation.x + nTilesWidth * tileWidth;
+    float yMin = anchorLocation.y ;
     float yMax = anchorLocation.y + nTilesHeight * tileHeight;
 
     return (xMin <= location.x) && (location.x <= xMax) && (yMin <= location.y) && (location.y <= yMax);

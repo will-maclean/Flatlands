@@ -14,3 +14,14 @@ T clip(T x, T min, T max){
 
     return x;
 }
+
+template <typename T>
+int sign(T x){
+    if (x < 0){
+        return -1;
+    }else if (x > 0){
+        return 1;
+    }
+
+    return 0;
+}
