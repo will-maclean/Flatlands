@@ -4,6 +4,8 @@
 #include "EntityHandler.h"
 #include "ChunkHandler.h"
 
+class Entity;
+
 class Game : public olc::PixelGameEngine{
 public:
 	Game();
@@ -49,6 +51,8 @@ public:
     float getWorldMax() const {
         return WORLD_MAX;
     }
+
+    void addEntity(Entity* entity);
 
 private:
 	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}

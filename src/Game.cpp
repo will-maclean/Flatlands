@@ -1,6 +1,7 @@
 #include "olcPixelGameEngine.h"
 #include "Game.h"
 #include "Player.h"
+#include "GlitterParticle.h"
 
 #include <iostream>
 #include <vector>
@@ -22,6 +23,7 @@ bool Game::OnUserCreate() {
 
     // create a player and add the player to the game
     entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
+    entityHandler->addEntity(new GlitterParticle({30.0f, 30.0f}, {0, 0}, 100));
 
     // Create a chunkg and add it to the game
     chunkHandler->addChunk(new Chunk({0, 0}));
@@ -54,6 +56,8 @@ void Game::render(){
     Clear(BACKGROUND_COLOUR);
     chunkHandler->render(this);
     entityHandler->render(this);
+
+    DrawStringDecal({10, 10}, std::to_string(entityHandler->getNEntities()));
 }
 
 bool Game::processGlobalUserInput(){
@@ -76,7 +80,7 @@ void Game::updateEntityChunk(){
 
         // start with checking the current chunk to see if we can avoid having
         // to iterate through the whole list of chunks
-        if(entity->getChunk() != nullptr){
+        if(entity->hasChunk() && entity->getChunk() != nullptr){
             Chunk* chunk = entity->getChunk();
             if(chunk->contains(entityLoc)){
                 // beauty! can continue
@@ -96,4 +100,8 @@ void Game::updateEntityChunk(){
             }
         }
     }
+}
+
+void Game::addEntity(Entity *entity) {
+    entityHandler->addEntity(entity);
 }

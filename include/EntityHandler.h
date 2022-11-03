@@ -22,6 +22,10 @@ public:
         return entities;
     }
 
+    int getNEntities() const {
+        return entities.size();
+    }
+
 private:
     std::vector<Entity *> entities;
 };

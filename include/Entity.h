@@ -12,7 +12,7 @@ class Entity{
 public:
     Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height);
     
-    virtual void tick(Game* game, float fElapsedTime);
+    virtual bool tick(Game* game, float fElapsedTime);
     virtual void render(Game* game);
 
     void setChunk(Chunk* chunk){
@@ -35,6 +35,16 @@ public:
         return height;
     }
 
+    // set to true if this entity should have a
+    // currChunk set, false otherwise
+    virtual bool hasChunk() const {
+        return true;
+    }
+
+    std::string getName() const {
+        return name;
+    }
+
     std::unique_ptr<Rectangle> getRectangle();
 
 protected:
@@ -46,12 +56,14 @@ protected:
     bool touchingGround = false;
     bool canJump = false;
 
+    std::unique_ptr<olc::Sprite> sprTile;
     std::unique_ptr<olc::Decal> decalTile;
 
     Chunk* currChunk;
 
+    const float gravity = 30.0f;
+
 private:
-    const float gravity = 0.1f;
     float width, height;
 
     void detectTouchingGround(float touchThreshold);

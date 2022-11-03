@@ -14,20 +14,21 @@ Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float h
     this->width = width;
     this->height = height;
 
-    decalTile = std::make_unique<olc::Decal>(std::make_unique<olc::Sprite>(spritePath).get());
+    sprTile = std::make_unique<olc::Sprite>(spritePath);
+    decalTile = std::make_unique<olc::Decal>(sprTile.get());
 }
 
 void Entity::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
-    olc::vf2d drawPos = location + game->getRenderOffset();
-    std::cout << drawPos << std::endl;
+    olc::vf2d drawPos = location - game->getRenderOffset();
+//    std::cout << drawPos << std::endl;
     game->DrawDecal(drawPos, decalTile.get());
 }
 
-void Entity::tick(Game* game, float fElapsedTime){
+bool Entity::tick(Game* game, float fElapsedTime){
     // update the position based on the velocity
     if(!touchingGround){
-        velocity.y += gravity;
+        velocity.y += fElapsedTime * gravity;
     }
 
     olc::vf2d dummyLocation = location + fElapsedTime * velocity;
@@ -37,7 +38,7 @@ void Entity::tick(Game* game, float fElapsedTime){
     std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this, testLocation);
 
     olc::vf2d newLocation;
-    
+
     if(collisionTiles.empty()){
         // no collisions! beauty
         newLocation = testLocation;
@@ -51,7 +52,7 @@ void Entity::tick(Game* game, float fElapsedTime){
 
     location = newLocation;
 
-    // now that we've set the location of the entity, check if we're touching the 
+    // now that we've set the location of the entity, check if we're touching the
     // ground
     detectTouchingGround(game->getTouchThreshold());
 
@@ -59,6 +60,8 @@ void Entity::tick(Game* game, float fElapsedTime){
         canJump = true;
         touchingGround = true;
     }
+
+    return true;
 }
 
 void Entity::detectTouchingGround(float touchThreshold){

@@ -1,4 +1,6 @@
 #include "EntityHandler.h"
+#include <vector>
+#include <bits/stdc++.h>
 
 EntityHandler::EntityHandler(){
 
@@ -8,13 +10,25 @@ void EntityHandler::addEntity(Entity* entity){
     entities.push_back(entity);
 }
 
-// void EntityHandler::removeEntity(Entity* entity){
-//     entities.remove(entities.begin(), entities.end(), entity);
-// }
-
 void EntityHandler::tick(Game* game, float fElapsedTime){
-    for(auto entity : entities){
-        entity->tick(game, fElapsedTime);
+    std::vector<int> deleteIdxs;
+
+    for(int i = 0; i < entities.size(); i++){
+        Entity* entity = entities.at(i);
+
+        if(!entity->tick(game, fElapsedTime)) {
+            deleteIdxs.push_back(i);
+        }
+    }
+
+    std::sort(deleteIdxs.begin(), deleteIdxs.end(), std::greater<int>());
+
+    for(auto idx : deleteIdxs){
+        Entity* entity = entities.at(idx);
+
+        entities.erase(entities.begin() + idx);
+
+        delete entity;
     }
 }
 

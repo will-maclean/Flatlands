@@ -36,8 +36,7 @@ if (WIN32)
 endif (WIN32)
 
 add_executable(${Executable}
-        ${SourceFiles}
-        include/MathUtils.h)
+        ${SourceFiles} src/Particle.cpp)
 
 link_libraries(${Executable}
         Threads::Threads
