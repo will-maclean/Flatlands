@@ -56,6 +56,7 @@ protected:
     bool touchingGround = false;
     bool canJump = false;
 
+    olc::vf2d scaling;
     std::unique_ptr<olc::Sprite> sprTile;
     std::unique_ptr<olc::Decal> decalTile;
 

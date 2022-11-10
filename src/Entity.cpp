@@ -13,8 +13,11 @@ Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float h
     this->health = health;
     this->width = width;
     this->height = height;
+    movingRight = false;
+    currChunk = nullptr;
 
     sprTile = std::make_unique<olc::Sprite>(spritePath);
+    scaling = {width / sprTile->width, height / sprTile->height};
     decalTile = std::make_unique<olc::Decal>(sprTile.get());
 }
 

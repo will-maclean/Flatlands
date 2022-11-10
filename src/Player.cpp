@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 Player::Player(std::string name, olc::vf2d location)
-: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 16, 16){
+: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 20, 20){
 
     inputVel = {0, 0};
 }
@@ -47,7 +47,7 @@ void Player::render(Game* game){
 
     olc::vf2d drawPos = game->getCentrePos();
 
-    olc::vf2d drawScaling = {1, 1};
+    olc::vf2d drawScaling = scaling;
 
     if(movingRight){
         // facing right!
