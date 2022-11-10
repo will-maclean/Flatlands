@@ -44,7 +44,18 @@ bool Player::tick(Game* game, float fElapsedTime) {
 
 void Player::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
-    game->DrawDecal(game->getCentrePos(), decalTile.get());
+
+    olc::vf2d drawPos = game->getCentrePos();
+
+    olc::vf2d drawScaling = {1, 1};
+
+    if(movingRight){
+        // facing right!
+        drawScaling.x *= -1;
+        drawPos.x += width;
+    }
+
+    game->DrawDecal(drawPos, decalTile.get(), drawScaling);
 }
 
 void Player::fartGlitter(Game* game) {

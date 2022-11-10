@@ -63,8 +63,7 @@ protected:
 
     const float gravity = 30.0f;
 
+    float width, height, movingRight;
 private:
-    float width, height;
-
     void detectTouchingGround(float touchThreshold);
 };

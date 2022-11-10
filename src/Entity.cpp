@@ -21,11 +21,28 @@ Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float h
 void Entity::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
     olc::vf2d drawPos = location - game->getRenderOffset();
+
+    olc::vf2d drawScaling = {1, 1};
+//    if(velocity.x > 0){
+//        // facing right!
+//        drawScaling.x *= -1;
+//        drawPos.x += width;
+//    }
 //    std::cout << drawPos << std::endl;
-    game->DrawDecal(drawPos, decalTile.get());
+    game->DrawDecal(drawPos, decalTile.get(), drawScaling);
 }
 
 bool Entity::tick(Game* game, float fElapsedTime){
+    if(movingRight){
+        if (velocity.x < 0){
+            movingRight = false;
+        }
+    }else{
+        if (velocity.x > 0){
+            movingRight = true;
+        }
+    }
+
     // update the position based on the velocity
     if(!touchingGround){
         velocity.y += fElapsedTime * gravity;
