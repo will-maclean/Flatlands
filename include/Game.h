@@ -54,6 +54,8 @@ public:
 
     void addEntity(Entity* entity);
 
+    std::shared_ptr<Rectangle> getScreenRect() const;
+
 private:
 	const olc::Pixel BACKGROUND_COLOUR = {79, 46, 223};  // {r, g, b, a=1}
     const float touchThreshold = 0.1f;
@@ -61,6 +63,7 @@ private:
     const float WORLD_MAX = 1024;
     const olc::vf2d centreSpot = {120, 120};
     olc::vf2d gamePos;
+    Entity* mainPlayer;
 
 	EntityHandler* entityHandler;
 	ChunkHandler* chunkHandler;

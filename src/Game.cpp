@@ -2,12 +2,13 @@
 #include "Game.h"
 #include "Player.h"
 #include "GlitterParticle.h"
-
+#include <memory>
 #include <iostream>
 #include <vector>
 
 Game::Game(){
     sAppName = "TerrariaPP";
+    mainPlayer = nullptr;
 }
 
 Game::~Game(){
@@ -22,7 +23,8 @@ bool Game::OnUserCreate() {
     chunkHandler = new ChunkHandler(200);
 
     // create a player and add the player to the game
-    entityHandler->addEntity(new Player("Steve", {30.0f, 30.0f}));
+    mainPlayer = new Player("Steve", {30.0f, 30.0f});
+    entityHandler->addEntity(mainPlayer);
     entityHandler->addEntity(new GlitterParticle({30.0f, 30.0f}, {0, 0}, 100));
 
     // Create a chunkg and add it to the game
@@ -104,4 +106,10 @@ void Game::updateEntityChunk(){
 
 void Game::addEntity(Entity *entity) {
     entityHandler->addEntity(entity);
+}
+
+std::shared_ptr<Rectangle> Game::getScreenRect() const{
+    olc::vi2d screenSize = GetScreenSize();
+    olc::vf2d anchorPos = {gamePos.x - screenSize.x/2, gamePos.y - screenSize.y/2};
+    return std::make_shared<Rectangle>(anchorPos, screenSize.x, screenSize.y);
 }

@@ -38,7 +38,7 @@ void defaultTileInitStrategy(Chunk* chunk){
             }else{
                 // 90% dirt, 10% chance empty
                 int r = std::rand() % 100;
-                if(r < 80){
+                if(r < 70){
                     if(i >=2 && emptyMap[i-1][j] && emptyMap[i-2][j]){
                         chunk->setTile(new GrassyDirtTile(anchorLocation), j, i);
                     }else{

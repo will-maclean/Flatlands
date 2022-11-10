@@ -34,6 +34,9 @@ void Tile::tick(float fElapsedTime){
 }
 
 void Tile::render(Game* game, olc::vi2d location){
+    //TODO: do we want to check whether individual tiles are visible before rendering? Currently we check whether a
+    // a chunk is visible, and if so render all tiles inside it.
+
     // just render the sprite, if defined
     if(decalTile){
         olc::vf2d offsetLoc = {8, 8};

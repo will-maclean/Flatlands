@@ -57,5 +57,7 @@ private:
 
     // stores the location of the top left of the chunk (locked to integers for easier rendering)
     olc::vi2d anchorLocation;
+
+    bool isVisible(Game* game);
     
 };

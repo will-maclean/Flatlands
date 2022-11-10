@@ -29,6 +29,9 @@ void Chunk::tick(float fElapsedTime){
 }
 
 void Chunk::render(Game* game){
+    if(!isVisible(game)){
+        return;
+    }
     // render all the tiles
     for(int i = 0; i < nTilesHeight; i++){
         for(int j = 0; j < nTilesWidth; j++){
@@ -79,4 +82,10 @@ std::vector<Tile *> Chunk::getCollisionTiles(Entity* entity, olc::vf2d testLocat
     }
 
     return collisionTiles;
+}
+
+bool Chunk::isVisible(Game* game){
+    auto gameScreenRect = game->getScreenRect();
+
+    return gameScreenRect->collision(std::make_unique<Rectangle>(anchorLocation, tileWidth * nTilesWidth, tileHeight * nTilesHeight));
 }
