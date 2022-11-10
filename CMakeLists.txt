@@ -36,7 +36,7 @@ if (WIN32)
 endif (WIN32)
 
 add_executable(${Executable}
-        ${SourceFiles} src/Particle.cpp)
+        ${SourceFiles} src/Particle.cpp include/Rat.h src/Rat.cpp)
 
 link_libraries(${Executable}
         Threads::Threads

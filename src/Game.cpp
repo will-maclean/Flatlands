@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "GlitterParticle.h"
+#include "Rat.h"
 #include <memory>
 #include <iostream>
 #include <vector>
@@ -24,8 +25,10 @@ bool Game::OnUserCreate() {
 
     // create a player and add the player to the game
     mainPlayer = new Player("Steve", {30.0f, 30.0f});
-    entityHandler->addEntity(mainPlayer);
-    entityHandler->addEntity(new GlitterParticle({30.0f, 30.0f}, {0, 0}, 100));
+    addEntity(mainPlayer);
+    addEntity(new Rat({30, 30}));
+    addEntity(new Rat({60, 30}));
+    addEntity(new Rat({90, 30}));
 
     // Create a chunkg and add it to the game
     chunkHandler->addChunk(new Chunk({0, 0}));

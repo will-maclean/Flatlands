@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 Player::Player(std::string name, olc::vf2d location)
-: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 20, 20){
+: Entity(name, location,  {0.0f, 0.0f}, 100.0f, "./resources/sprites/pixel_cat.png", 12, 12){
 
     inputVel = {0, 0};
 }

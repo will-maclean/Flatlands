@@ -25,12 +25,13 @@ void Entity::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
     olc::vf2d drawPos = location - game->getRenderOffset();
 
-    olc::vf2d drawScaling = {1, 1};
-//    if(velocity.x > 0){
-//        // facing right!
-//        drawScaling.x *= -1;
-//        drawPos.x += width;
-//    }
+    olc::vf2d drawScaling = scaling;
+
+    if(movingRight){
+        // facing right!
+        drawScaling.x *= -1;
+        drawPos.x += width;
+    }
 //    std::cout << drawPos << std::endl;
     game->DrawDecal(drawPos, decalTile.get(), drawScaling);
 }

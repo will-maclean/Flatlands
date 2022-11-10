@@ -62,9 +62,11 @@ protected:
 
     Chunk* currChunk;
 
-    const float gravity = 30.0f;
+    const float gravity = 40.0f;
 
-    float width, height, movingRight;
+    float width, height;
+
+    bool movingRight;
 private:
     void detectTouchingGround(float touchThreshold);
 };
