@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "olcPixelGameEngine.h"
 #include <cstdlib>
+#include <random>
 
 void fillAll(Chunk* chunk){
     olc::vf2d chunkAnchorLocation = chunk->getAnchorLocation();
@@ -15,13 +16,10 @@ void fillAll(Chunk* chunk){
     }
 }
 
-void defaultTileInitStrategy(Chunk* chunk){
-    // fillAll(chunk);  // useful for debugging
-    // defaults strategy:
-    //
+void flatWithHoles(Chunk* chunk){
     // top 10% of chunk -> EmptyTile
     // lower 75% of chunk -> 90% DirtBlock, 10% EmptyTile
-    
+
     int threshold = chunk->getHeight() * 0.1;
 
     bool emptyMap[chunk->getHeight()][chunk->getWidth()];
@@ -52,4 +50,41 @@ void defaultTileInitStrategy(Chunk* chunk){
             }
         }
     }
+}
+
+void noisyTerrain(Chunk* chunk){
+    // make an array of noise
+    int noise[chunk->getWidth()];
+
+    noise[0] = 0.1 * chunk->getHeight();
+
+    std::default_random_engine generator;
+    std::normal_distribution<float> distribution(0.0,1.0);
+
+    for(int i = 1; i < chunk->getWidth(); i++){
+        noise[i] = noise[i-1] + (int)distribution(generator);
+    }
+
+    olc::vf2d chunkAnchorLocation = chunk->getAnchorLocation();
+    for(int i = 0; i < chunk->getWidth(); i++) {
+        for (int j = 0; j < chunk->getHeight(); j++) {
+            olc::vf2d anchorLocation = {chunkAnchorLocation.x + i * chunk->getTileWidth(), chunkAnchorLocation.y + j * chunk->getTileHeight()};
+            if(j < noise[i]){
+                // empty tile
+                chunk->setTile(new EmptyTile(anchorLocation), i, j);
+            }else if (j == noise[i]){
+                // grassy tile
+                chunk->setTile(new GrassyDirtTile(anchorLocation), i, j);
+            }else{
+                // dirt tile
+                chunk->setTile(new DirtTile(anchorLocation), i, j);
+            }
+        }
+    }
+
+}
+
+void defaultTileInitStrategy(Chunk* chunk){
+//    flatWithHoles(chunk);
+    noisyTerrain(chunk);
 }

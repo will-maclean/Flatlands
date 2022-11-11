@@ -63,7 +63,7 @@ void Player::fartGlitter(Game* game) {
 
     for(int i = 0; i < 5; i++){
         olc::vf2d spawLoc = location;
-        olc::vf2d spawnVel {static_cast<float>(std::rand() % 10 - 5), -10};
+        olc::vf2d spawnVel {static_cast<float>(std::rand() % 10 - 5), -100};
 
         game->addEntity(new GlitterParticle(spawLoc, spawnVel, 10));
     }
