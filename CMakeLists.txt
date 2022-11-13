@@ -36,7 +36,7 @@ if (WIN32)
 endif (WIN32)
 
 add_executable(${Executable}
-        ${SourceFiles} src/Particle.cpp include/Rat.h src/Rat.cpp include/BehaviourEntity.h include/Behaviour.h src/BehaviourEntity.cpp src/DoNothingBehaviour.cpp include/DoNothingBehaviour.h include/RandomMovementBehaviour.h src/RandomMovementBehaviour.cpp)
+        ${SourceFiles})
 
 if (${APPLE})
 
