@@ -1,6 +1,5 @@
 #include "EntityHandler.h"
 #include <vector>
-#include <bits/stdc++.h>
 
 EntityHandler::EntityHandler(){
 

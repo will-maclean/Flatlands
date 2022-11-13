@@ -112,7 +112,6 @@ void Game::addEntity(Entity *entity) {
 }
 
 std::shared_ptr<Rectangle> Game::getScreenRect() const{
-    olc::vi2d screenSize = GetScreenSize();
-    olc::vf2d anchorPos = {gamePos.x - screenSize.x/2, gamePos.y - screenSize.y/2};
-    return std::make_shared<Rectangle>(anchorPos, screenSize.x, screenSize.y);
+    olc::vf2d anchorPos = {gamePos.x - ScreenWidth()/2, gamePos.y - ScreenHeight()/2};
+    return std::make_shared<Rectangle>(anchorPos, ScreenWidth(), ScreenHeight());
 }
