@@ -6,6 +6,7 @@
 
 #include "Entity.h"
 #include <string>
+#include <ctime>
 
 class Particle : public Entity {
 public:

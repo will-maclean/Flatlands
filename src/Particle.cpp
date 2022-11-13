@@ -4,10 +4,11 @@
 
 #include "Particle.h"
 #include <string>
+#include <ctime>
 
 Particle::Particle(std::string spritePath, olc::vf2d  location, olc::vf2d  velocity, float lifetime)
         : Entity("particle", location, velocity, 1, spritePath, 8, 8){
-    this->mLifetime = lifetime;
+    this->mLifetime = lifetime * CLOCKS_PER_SEC;
     this->mBirthday = std::clock();
 }
 
@@ -16,5 +17,5 @@ bool Particle::tick(Game* game, float fElapsedTime) {
 
     mLocation = mLocation + fElapsedTime * mVelocity;
 
-    return std::clock() - mBirthday > mLifetime;
+    return std::clock() - mBirthday < mLifetime;
 }
