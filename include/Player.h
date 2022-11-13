@@ -14,7 +14,7 @@ public:
 private:
     const float MAX_SPEED = 15.0f;
     const float JUMP_VEL = 60;
-    olc::vf2d inputVel;
+    olc::vf2d mInputVel;
 
     void fartGlitter(Game* game);
 };

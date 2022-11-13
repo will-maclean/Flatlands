@@ -11,11 +11,11 @@ Rat::Rat(olc::vf2d location)
 }
 
 bool Rat::tick(Game* game, float fElapsedTime) {
-    // just make a random velocity for now
-//    velocity += {static_cast<float>(std::rand() % 10) - 5, static_cast<float>(std::rand() % 10) - 5};
+    // just make a random mVelocity for now
+//    mVelocity += {static_cast<float>(std::rand() % 10) - 5, static_cast<float>(std::rand() % 10) - 5};
 
-//    if(velocity.mag() > 0){
-//        velocity = velocity.norm();
+//    if(mVelocity.mag() > 0){
+//        mVelocity = mVelocity.norm();
 //    }
 
     return Entity::tick(game, fElapsedTime);

@@ -29,7 +29,7 @@ public:
     }
 
     olc::vf2d getAnchorLocation() const {
-        return anchorLocation;
+        return mAnchorLocation;
     }
 
     bool entityCollision(Entity* entity, olc::vf2d testLocation);
@@ -37,11 +37,11 @@ public:
     bool entityStandingOn(Entity* entity, float touchThreshold);
 
 private:
-    std::unique_ptr<olc::Sprite> sprFragment;
-    std::unique_ptr<olc::Decal> decalTile;
+    std::unique_ptr<olc::Sprite> mSprFragment;
+    std::unique_ptr<olc::Decal> mDecalTile;
     bool mIsSolid;
-    float decalRotate;
-    olc::vf2d anchorLocation;
+    float mDecalRotate;
+    olc::vf2d mAnchorLocation;
 
     int tileWidth = 16;  //TODO: fix this
     int tileHeight = 16;

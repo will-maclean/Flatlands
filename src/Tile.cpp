@@ -6,27 +6,27 @@
 Tile::Tile(olc::vf2d anchorLocation, std::string spritePath, bool randomFlip, bool mIsSolid)
     : Rectangle(anchorLocation, 16, 16){
     this->mIsSolid = mIsSolid;
-    this->anchorLocation = anchorLocation;
+    this->mAnchorLocation = anchorLocation;
 
-    sprFragment = std::make_unique<olc::Sprite>(spritePath);
+    mSprFragment = std::make_unique<olc::Sprite>(spritePath);
 
     // Create decal of fragment
-    decalTile = std::make_unique<olc::Decal>(sprFragment.get());
+    mDecalTile = std::make_unique<olc::Decal>(mSprFragment.get());
 
     if(randomFlip){
         int flipType = rand() % 4;
 
-        decalRotate = flipType * 1.5708; // 1.5708 = 90 degrees in radians
+        mDecalRotate = flipType * 1.5708; // 1.5708 = 90 degrees in radians
     }else{
-        decalRotate = 0;
+        mDecalRotate = 0;
     }
 }
 
 Tile::Tile(olc::vf2d anchorLocation, bool mIsSolid)
     : Rectangle(anchorLocation, 16, 16){
-    this->anchorLocation = anchorLocation;
+    this->mAnchorLocation = anchorLocation;
     this->mIsSolid = mIsSolid;
-    decalTile = nullptr;
+    mDecalTile = nullptr;
 }
 
 void Tile::tick(float fElapsedTime){
@@ -38,9 +38,9 @@ void Tile::render(Game* game, olc::vi2d location){
     // a chunk is visible, and if so render all tiles inside it.
 
     // just render the sprite, if defined
-    if(decalTile){
+    if(mDecalTile){
         olc::vf2d offsetLoc = {8, 8};
-        game->DrawRotatedDecal(location + offsetLoc - game->getRenderOffset(), decalTile.get(), decalRotate, offsetLoc);
+        game->DrawRotatedDecal(location + offsetLoc - game->getRenderOffset(), mDecalTile.get(), mDecalRotate, offsetLoc);
         // game->DrawSprite()
     }
 }
@@ -51,7 +51,7 @@ bool Tile::entityCollision(Entity* entity, olc::vf2d testLocation){
 
 bool Tile::entityStandingOn(Entity* entity, float touchThreshold){
     std::unique_ptr<Rectangle> entityRect = entity->getRectangle();
-    std::shared_ptr<Rectangle> touchRect = std::shared_ptr<Rectangle>(new Rectangle({anchorLocation.x, anchorLocation.y - touchThreshold}, getTileWidth(), touchThreshold));
+    std::shared_ptr<Rectangle> touchRect = std::shared_ptr<Rectangle>(new Rectangle({mAnchorLocation.x, mAnchorLocation.y - touchThreshold}, getTileWidth(), touchThreshold));
     return entityRect->collision(touchRect) && mIsSolid;
 }
 

@@ -23,23 +23,23 @@ public:
     }
 
     int getTileWidth() const {
-        return tileWidth;
+        return mTileWidth;
     }
 
     int getTileHeight() const {
-        return tileHeight;
+        return mTileHeight;
     }
 
     void setTile(Tile* tile, int x, int y){
-        this->tileArr[y][x] = tile;
+        this->mTileArr[y][x] = tile;
     }
 
     Tile* getTile(int x, int y) const{
-        return this->tileArr[y][x];
+        return this->mTileArr[y][x];
     }
     
     olc::vf2d getAnchorLocation() const{
-        return anchorLocation;
+        return mAnchorLocation;
     }
 
     bool contains(olc::vf2d location) const;
@@ -50,13 +50,13 @@ private:
     const int nTilesHeight = 64;
     const int nTilesWidth = 16;
 
-    const int tileWidth = 16;
-    const int tileHeight = 16;
+    const int mTileWidth = 16;
+    const int mTileHeight = 16;
 
-    Tile* tileArr[64][16];
+    Tile* mTileArr[64][16];
 
-    // stores the location of the top left of the chunk (locked to integers for easier rendering)
-    olc::vi2d anchorLocation;
+    // stores the mLocation of the top left of the chunk (locked to integers for easier rendering)
+    olc::vi2d mAnchorLocation;
 
     bool isVisible(Game* game);
     

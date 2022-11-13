@@ -17,8 +17,8 @@ public:
         return false;
     }
 private:
-    float lifetime;
-    clock_t birthday;
+    float mLifetime;
+    clock_t mBirthday;
 };
 
 

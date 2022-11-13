@@ -7,48 +7,48 @@
 class Rectangle {
 public:
     Rectangle(olc::vf2d anchorLocation, float width, float height){
-        this->anchorLocation = anchorLocation;
-        this->width = width;
-        this->height = height;
+        this->mAnchorLocation = anchorLocation;
+        this->mWidth = width;
+        this->mHeight = height;
     }
 
     //TODO: can we make this nicer? Probably
 
     bool collision(Rectangle* otherRect) {
-        return ((otherRect->anchorLocation.x < anchorLocation.x + width) 
-                && (anchorLocation.x < otherRect->anchorLocation.x + otherRect->width))
-                && ((otherRect->anchorLocation.y < anchorLocation.y +  height) 
-                && (anchorLocation.y < otherRect->anchorLocation.y + otherRect->height));
+        return ((otherRect->mAnchorLocation.x < mAnchorLocation.x + mWidth)
+                && (mAnchorLocation.x < otherRect->mAnchorLocation.x + otherRect->mWidth))
+                && ((otherRect->mAnchorLocation.y < mAnchorLocation.y + mHeight)
+                && (mAnchorLocation.y < otherRect->mAnchorLocation.y + otherRect->mHeight));
     }
 
     bool collision(std::unique_ptr<Rectangle> otherRect){
-        return ((otherRect->anchorLocation.x < anchorLocation.x + width) 
-                && (anchorLocation.x < otherRect->anchorLocation.x + otherRect->width))
-                && ((otherRect->anchorLocation.y < anchorLocation.y +  height) 
-                && (anchorLocation.y < otherRect->anchorLocation.y + otherRect->height));
+        return ((otherRect->mAnchorLocation.x < mAnchorLocation.x + mWidth)
+                && (mAnchorLocation.x < otherRect->mAnchorLocation.x + otherRect->mWidth))
+                && ((otherRect->mAnchorLocation.y < mAnchorLocation.y + mHeight)
+                && (mAnchorLocation.y < otherRect->mAnchorLocation.y + otherRect->mHeight));
     }
 
     bool collision(std::shared_ptr<Rectangle> otherRect){
-        return ((otherRect->anchorLocation.x < anchorLocation.x + width) 
-                && (anchorLocation.x < otherRect->anchorLocation.x + otherRect->width))
-                && ((otherRect->anchorLocation.y < anchorLocation.y +  height) 
-                && (anchorLocation.y < otherRect->anchorLocation.y + otherRect->height));
+        return ((otherRect->mAnchorLocation.x < mAnchorLocation.x + mWidth)
+                && (mAnchorLocation.x < otherRect->mAnchorLocation.x + otherRect->mWidth))
+                && ((otherRect->mAnchorLocation.y < mAnchorLocation.y + mHeight)
+                && (mAnchorLocation.y < otherRect->mAnchorLocation.y + otherRect->mHeight));
     }
 
     olc::vf2d getAnchorLocation() const {
-        return anchorLocation;
+        return mAnchorLocation;
     }
 
     float getWidth() const {
-        return width;
+        return mWidth;
     }
 
     float getHeight() const {
-        return height;
+        return mHeight;
     }
 
 private:
-    olc::vf2d anchorLocation;
-    float width;
-    float height;
+    olc::vf2d mAnchorLocation;
+    float mWidth;
+    float mHeight;
 };

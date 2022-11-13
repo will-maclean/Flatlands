@@ -5,16 +5,16 @@
 olc::vf2d getNewLocation(std::vector<Tile*> tiles, Entity* entity, float touchThreshold, olc::vf2d newLocation, olc::vf2d oldLocation){
     // tiles -> vector of tiles that are currently colliding with the entity
     // entity -> entity that we need to find a new locaiton for
-    // touchThreshold -> the max distance between an entity and a tile for us to call them touching
-    // oldLocation -> last location of the entity
-    // newLocatoin -> new location of entity (with collision(s)
+    // TOUCH_THRESHOLD -> the max distance between an entity and a tile for us to call them touching
+    // oldLocation -> last mLocation of the entity
+    // newLocatoin -> new mLocation of entity (with collision(s)
     
     olc::vf2d searchPath = oldLocation - newLocation; // invariant -> searchPath.mag() > 0
 
     int nTrials = searchPath.mag() / (2 * touchThreshold);
 
     for(int i = 1; i < nTrials; i++){
-        // make a new location to test
+        // make a new mLocation to test
         olc::vf2d addVec = i * searchPath.norm() / (2 * touchThreshold);
         olc::vf2d testLocation = newLocation + addVec;
 
@@ -36,7 +36,7 @@ olc::vf2d getNewLocation(std::vector<Tile*> tiles, Entity* entity, float touchTh
         }
     }
 
-    // if can't find a suitable location, just resturn the old position. Should be fine right?
+    // if can't find a suitable mLocation, just resturn the old position. Should be fine right?
     return oldLocation;
 
 }
