@@ -62,6 +62,7 @@ void Game::render(){
     mChunkHandler->render(this);
     mEntityHandler->render(this);
 
+    // usefule to know how many entities are in the game, for debugging purposes
     DrawStringDecal({10, 10}, std::to_string(mEntityHandler->getNEntities()));
 }
 

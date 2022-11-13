@@ -47,6 +47,10 @@ public:
 
     std::unique_ptr<Rectangle> getRectangle();
 
+    void setVelocity(olc::vf2d velocity){
+        mVelocity = velocity;
+    }
+
 protected:
     std::string mName;
     olc::vf2d mLocation;
