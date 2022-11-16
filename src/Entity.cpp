@@ -7,56 +7,56 @@
 #include <iostream>
 
 Entity::Entity(std::string name, olc::vf2d location, olc::vf2d velocity, float health, std::string spritePath, float width, float height){
-    this->name = name;
-    this->location = location;
-    this->velocity = velocity;
-    this->health = health;
-    this->width = width;
-    this->height = height;
-    movingRight = false;
-    currChunk = nullptr;
+    this->mName = name;
+    this->mLocation = location;
+    this->mVelocity = velocity;
+    this->mHealth = health;
+    this->mWidth = width;
+    this->mHeight = height;
+    mMovingRight = false;
+    mCurrChunk = nullptr;
 
-    sprTile = std::make_unique<olc::Sprite>(spritePath);
-    scaling = {width / sprTile->width, height / sprTile->height};
-    decalTile = std::make_unique<olc::Decal>(sprTile.get());
+    mSprTile = std::make_unique<olc::Sprite>(spritePath);
+    mScaling = {width / mSprTile->width, height / mSprTile->height};
+    mDecalTile = std::make_unique<olc::Decal>(mSprTile.get());
 }
 
 void Entity::render(Game* game){
     game->SetPixelMode(olc::Pixel::MASK); // Dont draw pixels which have any transparency
-    olc::vf2d drawPos = location - game->getRenderOffset();
+    olc::vf2d drawPos = mLocation - game->getRenderOffset();
 
-    olc::vf2d drawScaling = scaling;
+    olc::vf2d drawScaling = mScaling;
 
-    if(movingRight){
+    if(mMovingRight){
         // facing right!
         drawScaling.x *= -1;
-        drawPos.x += width;
+        drawPos.x += mWidth;
     }
 //    std::cout << drawPos << std::endl;
-    game->DrawDecal(drawPos, decalTile.get(), drawScaling);
+    game->DrawDecal(drawPos, mDecalTile.get(), drawScaling);
 }
 
 bool Entity::tick(Game* game, float fElapsedTime){
-    if(movingRight){
-        if (velocity.x < 0){
-            movingRight = false;
+    if(mMovingRight){
+        if (mVelocity.x < 0){
+            mMovingRight = false;
         }
     }else{
-        if (velocity.x > 0){
-            movingRight = true;
+        if (mVelocity.x > 0){
+            mMovingRight = true;
         }
     }
 
-    // update the position based on the velocity
-    if(!touchingGround){
-        velocity.y += fElapsedTime * gravity;
+    // update the position based on the mVelocity
+    if(!mTouchingGround){
+        mVelocity.y += fElapsedTime * mGravity;
     }
 
-    olc::vf2d dummyLocation = location + fElapsedTime * velocity;
+    olc::vf2d dummyLocation = mLocation + fElapsedTime * mVelocity;
 
     olc::vf2d testLocation = {dummyLocation.x, clip(dummyLocation.y, game->getWorldMin(), game->getWorldMax())};
 
-    std::vector<Tile *> collisionTiles = currChunk->getCollisionTiles(this, testLocation);
+    std::vector<Tile *> collisionTiles = mCurrChunk->getCollisionTiles(this, testLocation);
 
     olc::vf2d newLocation;
 
@@ -67,19 +67,19 @@ bool Entity::tick(Game* game, float fElapsedTime){
         // collision! we'll have to sort this out.
 
         // easiest solution is to just not move the entity
-        newLocation = getNewLocation(collisionTiles, this, game->getTouchThreshold(), testLocation, location);
-        velocity.y = 0;  // if there's a collision, stop moving
+        newLocation = getNewLocation(collisionTiles, this, game->getTouchThreshold(), testLocation, mLocation);
+        mVelocity.y = 0;  // if there's a collision, stop moving
     }
 
-    location = newLocation;
+    mLocation = newLocation;
 
-    // now that we've set the location of the entity, check if we're touching the
+    // now that we've set the mLocation of the entity, check if we're touching the
     // ground
     detectTouchingGround(game->getTouchThreshold());
 
-    if(touchingGround){
-        canJump = true;
-        touchingGround = true;
+    if(mTouchingGround){
+        mCanJump = true;
+        mTouchingGround = true;
     }
 
     return true;
@@ -91,22 +91,22 @@ void Entity::detectTouchingGround(float touchThreshold){
     // check if we're close enough to the ground to be called "touching"
 
     // just check all the tiles for now because I'm lazy and can't be bothered optimising
-    for(int i = 0; i < currChunk->getWidth(); i++){
-        for(int j = 0; j < currChunk->getHeight(); j++){
-            Tile* currTile = currChunk->getTile(j, i);
+    for(int i = 0; i < mCurrChunk->getWidth(); i++){
+        for(int j = 0; j < mCurrChunk->getHeight(); j++){
+            Tile* currTile = mCurrChunk->getTile(j, i);
 
             if(currTile->entityStandingOn(this, touchThreshold)){
-                touchingGround = true;
-                canJump = true;
+                mTouchingGround = true;
+                mCanJump = true;
                 return;
             }
         }
     }
 
-    touchingGround = false;
-    canJump = false;
+    mTouchingGround = false;
+    mCanJump = false;
 }
 
 std::unique_ptr<Rectangle> Entity::getRectangle(){
-    return std::unique_ptr<Rectangle>(new Rectangle(location, width, height)); 
+    return std::unique_ptr<Rectangle>(new Rectangle(mLocation, mWidth, mHeight));
 }

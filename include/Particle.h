@@ -6,6 +6,7 @@
 
 #include "Entity.h"
 #include <string>
+#include <ctime>
 
 class Particle : public Entity {
 public:
@@ -17,8 +18,8 @@ public:
         return false;
     }
 private:
-    float lifetime;
-    clock_t birthday;
+    float mLifetime;
+    clock_t mBirthday;
 };
 
 

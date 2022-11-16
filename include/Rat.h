@@ -6,12 +6,9 @@
 
 #include <string>
 #include "olcPixelGameEngine.h"
-#include "Entity.h"
+#include "BehaviourEntity.h"
 
-class Rat : public Entity{
+class Rat : public BehaviourEntity{
 public:
     Rat(olc::vf2d location);
-
-    bool tick(Game* game, float fElapsedTime) override;
-
 };

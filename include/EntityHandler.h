@@ -19,13 +19,13 @@ public:
     void render(Game* game);
 
     std::vector<Entity *> getEntities(){
-        return entities;
+        return mEntities;
     }
 
     int getNEntities() const {
-        return entities.size();
+        return mEntities.size();
     }
 
 private:
-    std::vector<Entity *> entities;
+    std::vector<Entity *> mEntities;
 };

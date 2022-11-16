@@ -18,15 +18,15 @@ public:
     void render(Game* game);
 
     std::vector<Chunk *> getChunks(){
-        return chunks;
+        return mChunks;
     }
 private:
-    std::vector<Chunk *> chunks;
+    std::vector<Chunk *> mChunks;
 
-    Chunk* leftMostChunk;
-    Chunk* rightMostChunk;
+    Chunk* mLeftMostChunk;
+    Chunk* mRightMostChunk;
 
-    float createNewChunkDistance;
+    float mCreateNewChunkDistance;
 
     void checkCreateNewChunks(Game* game);
 };

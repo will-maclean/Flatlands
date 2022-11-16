@@ -9,29 +9,29 @@
 
 Game::Game(){
     sAppName = "TerrariaPP";
-    mainPlayer = nullptr;
+    mMainPlayer = nullptr;
 }
 
 Game::~Game(){
-    delete entityHandler;
-    delete chunkHandler;
+    delete mEntityHandler;
+    delete mChunkHandler;
 }
 
 bool Game::OnUserCreate() {
-    gamePos = {0.0f, 0.0f};
+    mGamePos = {0.0f, 0.0f};
 
-    entityHandler = new EntityHandler();
-    chunkHandler = new ChunkHandler(200);
+    mEntityHandler = new EntityHandler();
+    mChunkHandler = new ChunkHandler(200);
 
     // create a player and add the player to the game
-    mainPlayer = new Player("Steve", {30.0f, 30.0f});
-    addEntity(mainPlayer);
+    mMainPlayer = new Player("Steve", {30.0f, 30.0f});
+    addEntity(mMainPlayer);
     addEntity(new Rat({30, 30}));
     addEntity(new Rat({60, 30}));
     addEntity(new Rat({90, 30}));
 
     // Create a chunkg and add it to the game
-    chunkHandler->addChunk(new Chunk({0, 0}));
+    mChunkHandler->addChunk(new Chunk({0, 0}));
 
     return true;
 }
@@ -50,8 +50,8 @@ bool Game::OnUserUpdate(float fElapsedTime) {
 
 bool Game::tick(float fElapsedTime){
     updateEntityChunk();
-    chunkHandler->tick(this, fElapsedTime);
-    entityHandler->tick(this, fElapsedTime);
+    mChunkHandler->tick(this, fElapsedTime);
+    mEntityHandler->tick(this, fElapsedTime);
 
     return true;
 }
@@ -59,10 +59,11 @@ bool Game::tick(float fElapsedTime){
 void Game::render(){
     SetPixelMode(olc::Pixel::NORMAL);
     Clear(BACKGROUND_COLOUR);
-    chunkHandler->render(this);
-    entityHandler->render(this);
+    mChunkHandler->render(this);
+    mEntityHandler->render(this);
 
-    DrawStringDecal({10, 10}, std::to_string(entityHandler->getNEntities()));
+    // usefule to know how many entities are in the game, for debugging purposes
+    DrawStringDecal({10, 10}, std::to_string(mEntityHandler->getNEntities()));
 }
 
 bool Game::processGlobalUserInput(){
@@ -77,14 +78,14 @@ bool Game::processGlobalUserInput(){
 
 void Game::updateEntityChunk(){
     // make sure that each entity has the correct chunk
-    std::vector<Entity *> entities = entityHandler->getEntities();
+    std::vector<Entity *> entities = mEntityHandler->getEntities();
 
     for(auto entity : entities){
         // check that the current chunk is correct
         olc::vf2d entityLoc = entity->getLocation();
 
         // start with checking the current chunk to see if we can avoid having
-        // to iterate through the whole list of chunks
+        // to iterate through the whole list of mChunks
         if(entity->hasChunk() && entity->getChunk() != nullptr){
             Chunk* chunk = entity->getChunk();
             if(chunk->contains(entityLoc)){
@@ -98,7 +99,7 @@ void Game::updateEntityChunk(){
 
         // looks like the current chunk either isn't set, or doesn't contain
         // the entity. Let's see if we can find a home for the entity.
-        for(auto chunk : chunkHandler->getChunks()){
+        for(auto chunk : mChunkHandler->getChunks()){
             if (chunk->contains(entityLoc)){
                 entity->setChunk(chunk);
                 break;
@@ -108,11 +109,10 @@ void Game::updateEntityChunk(){
 }
 
 void Game::addEntity(Entity *entity) {
-    entityHandler->addEntity(entity);
+    mEntityHandler->addEntity(entity);
 }
 
 std::shared_ptr<Rectangle> Game::getScreenRect() const{
-    olc::vi2d screenSize = GetScreenSize();
-    olc::vf2d anchorPos = {gamePos.x - screenSize.x/2, gamePos.y - screenSize.y/2};
-    return std::make_shared<Rectangle>(anchorPos, screenSize.x, screenSize.y);
+    olc::vf2d anchorPos = {mGamePos.x - ScreenWidth() / 2, mGamePos.y - ScreenHeight() / 2};
+    return std::make_shared<Rectangle>(anchorPos, ScreenWidth(), ScreenHeight());
 }

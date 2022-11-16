@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include <string>
 
 class Game;
 
@@ -12,8 +13,8 @@ public:
     void render(Game* game) override;
 private:
     const float MAX_SPEED = 15.0f;
-    const float JUMP_VEL = 50;
-    olc::vf2d inputVel;
+    const float JUMP_VEL = 60;
+    olc::vf2d mInputVel;
 
     void fartGlitter(Game* game);
 };
