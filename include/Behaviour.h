@@ -10,6 +10,9 @@ class Entity;
 
 class Behaviour{
 public:
+  Behaviour() = default;
+  ~Behaviour() = default;
+
     virtual bool tick(Entity* entity, Game* game, float fElapsedTime) = 0;
 };
 

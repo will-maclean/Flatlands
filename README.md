@@ -18,12 +18,14 @@ other ways. Namely, I aim to have a rich visual and auditory experience.
 - VISUAL
   - pixel art
   - particle effects
+  - day/night cycle
 - AUDIO
   - interesting nackground music
   - focus on piano music
 
 ## TODOs:
 - Animated sprites
+- More efficient sprite management (instead of loading the same sprite inside each entity/tile)
 - Add sound functionality
 - Add songs to entities
 - Add different biomes to house the different entities
