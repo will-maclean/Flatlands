@@ -2,6 +2,8 @@
 
 _Will Maclean_
 
+![Game Screenshot](img/gameScreenshot.png)
+
 Idea: to create a game where the audio is as core to the gameplay as the visuals.
 
 Flatlands is a game where the player aims to interact with various other entities to hear their songs.
