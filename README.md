@@ -22,7 +22,7 @@ other ways. Namely, I aim to have a rich visual and auditory experience.
   - particle effects
   - day/night cycle
 - AUDIO
-  - interesting nackground music
+  - interesting background music
   - focus on piano music
 
 ## TODOs:
