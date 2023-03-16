@@ -2,8 +2,7 @@
 // Created by Will Maclean on 13/11/2022.
 //
 
-#ifndef FLATLANDS_RANDOMMOVEMENTBEHAVIOUR_H
-#define FLATLANDS_RANDOMMOVEMENTBEHAVIOUR_H
+#pragma once
 
 #include "Behaviour.h"
 
@@ -21,5 +20,3 @@ private:
 
     float mXMin, mXMax, mYMin, mYMax;
 };
-
-#endif //FLATLANDS_RANDOMMOVEMENTBEHAVIOUR_H

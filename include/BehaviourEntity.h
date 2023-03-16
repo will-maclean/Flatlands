@@ -2,8 +2,7 @@
 // Created by Will Maclean on 13/11/2022.
 //
 
-#ifndef FLATLANDS_BEHAVIOURENTITY_H
-#define FLATLANDS_BEHAVIOURENTITY_H
+#pragma once
 
 #include "Entity.h"
 #include "olcPixelGameEngine.h"
@@ -25,5 +24,3 @@ private:
     Behaviour* mCurrBehaviour;
     std::map<int, Behaviour*> mBehaviours;
 };
-
-#endif //FLATLANDS_BEHAVIOURENTITY_H

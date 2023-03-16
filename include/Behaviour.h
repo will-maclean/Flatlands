@@ -2,8 +2,7 @@
 // Created by Will Maclean on 13/11/2022.
 //
 
-#ifndef FLATLANDS_BEHAVIOUR_H
-#define FLATLANDS_BEHAVIOUR_H
+#pragma once
 
 class Game;
 class Entity;
@@ -15,5 +14,3 @@ public:
 
     virtual bool tick(Entity* entity, Game* game, float fElapsedTime) = 0;
 };
-
-#endif //FLATLANDS_BEHAVIOUR_H
